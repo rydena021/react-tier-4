@@ -6,7 +6,7 @@ class ApplicationsForm extends Component {
     user_id: this.props.user.id,
     contact_id: null,
     position: '',
-    company: '',
+    company: ''
     posting_url: '',
     date_applied: '',
     comments: '',
