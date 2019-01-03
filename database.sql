@@ -6,7 +6,7 @@ CREATE TABLE "person" (
     "last_name" VARCHAR (240),
     "email" VARCHAR (240),
     "avatar_url" VARCHAR (1000),
-    "notifications" BOOLEAN DEFAULT FALSE,
+    "notifications" BOOLEAN DEFAULT TRUE,
     "application_goal" INTEGER DEFAULT 10,
     "commit_goal" INTEGER DEFAULT 5,
     "meetup_goal" INTEGER DEFAULT 1
