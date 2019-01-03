@@ -1,18 +1,27 @@
-import { takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-// worker Saga: will be fired on "REGISTER" actions
 function* addApplication(action) {
   try {
-    // passes the application object from the payload to the server
     yield axios.post('api/applications', action.payload);
+    yield put({ type: 'FETCH_APPLICATIONS' });
   } catch (error) {
-    console.log('Error adding application:', error);
+    console.log('Error POSTING application:', error);
+  }
+}
+
+function* fetchApplications() {
+  try {
+    const response = yield axios.get('api/applications');
+    yield put({ type: 'SET_APPLICATIONS', payload: response.data });
+  } catch (error) {
+    console.log('Error GETTING applications:', error);
   }
 }
 
 function* registrationSaga() {
   yield takeEvery('ADD_APPLICATION', addApplication);
+  yield takeEvery('FETCH_APPLICATIONS', fetchApplications);
 }
 
 export default registrationSaga;

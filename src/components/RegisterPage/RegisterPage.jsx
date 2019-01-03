@@ -5,14 +5,14 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    avatarUrl: '',
+    avatar_url: '',
     notifications: true,
-    applicationGoal: 10,
-    commitGoal: 5,
-    meetupGoal: 1,
+    application_goal: 10,
+    commit_goal: 5,
+    meetup_goal: 1,
   };
 
   registerUser = (event) => {
@@ -28,9 +28,9 @@ class RegisterPage extends Component {
     }
   } // end registerUser
 
-  handleInputChangeFor = propertyName => (event) => {
+  handleInputChange = (event) => {
     this.setState({
-      [propertyName]: event.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
@@ -54,7 +54,7 @@ class RegisterPage extends Component {
                 type="text"
                 name="username"
                 value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
@@ -65,29 +65,29 @@ class RegisterPage extends Component {
                 type="password"
                 name="password"
                 value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="firstName">
+            <label htmlFor="first_name">
               First Name:
               <input
                 type="text"
-                name="firstName"
-                value={this.state.firstName}
-                onChange={this.handleInputChangeFor('firstName')}
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="lastName">
+            <label htmlFor="last_name">
               Last Name:
               <input
                 type="text"
-                name="lastName"
-                value={this.state.lastName}
-                onChange={this.handleInputChangeFor('lastName')}
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
@@ -98,18 +98,18 @@ class RegisterPage extends Component {
                 type="text"
                 name="email"
                 value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="avatarUrl">
+            <label htmlFor="avatar_url">
               Avatar URL:
               <input
                 type="text"
-                name="avatarUrl"
-                value={this.state.avatarUrl}
-                onChange={this.handleInputChangeFor('avatarUrl')}
+                name="avatar_url"
+                value={this.state.avatar_url}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
@@ -120,40 +120,40 @@ class RegisterPage extends Component {
                 type="text"
                 name="notifications"
                 value={this.state.notifications}
-                onChange={this.handleInputChangeFor('notifications')}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="applicationGoal">
+            <label htmlFor="application_goal">
               Application Goal:
               <input
                 type="number"
-                name="applicationGoal"
-                value={this.state.applicationGoal}
-                onChange={this.handleInputChangeFor('applicationGoal')}
+                name="application_goal"
+                value={this.state.application_goal}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="commitGoal">
+            <label htmlFor="commit_goal">
               Commit Goal:
               <input
                 type="number"
-                name="commitGoal"
-                value={this.state.commitGoal}
-                onChange={this.handleInputChangeFor('commitGoal')}
+                name="commit_goal"
+                value={this.state.commit_goal}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="meetupGoal">
+            <label htmlFor="meetup_goal">
               Meetup Goal:
               <input
                 type="number"
-                name="meetupGoal"
-                value={this.state.meetupGoal}
-                onChange={this.handleInputChangeFor('meetupGoal')}
+                name="meetup_goal"
+                value={this.state.meetup_goal}
+                onChange={this.handleInputChange}
               />
             </label>
           </div>

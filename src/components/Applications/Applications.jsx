@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ApplicationsForm from './ApplicationsForm';
+import ApplicationsTable from './ApplicationsTable';
 
 class Applications extends Component {
 
@@ -8,6 +9,8 @@ class Applications extends Component {
       <div>
         <h1>Applications</h1>
         <ApplicationsForm />
+        <hr />
+        <ApplicationsTable />
       </div>
     )
   }

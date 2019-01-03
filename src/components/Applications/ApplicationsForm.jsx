@@ -6,7 +6,7 @@ class ApplicationsForm extends Component {
     user_id: this.props.user.id,
     contact_id: null,
     position: '',
-    company: ''
+    company: '',
     posting_url: '',
     date_applied: '',
     comments: '',
@@ -31,7 +31,7 @@ class ApplicationsForm extends Component {
     return (
       <div>
         <form onSubmit={this.addApplication}>
-          <h1>New Application</h1>
+          <h3>New Application</h3>
           <div>
             <label htmlFor="date_applied">
               Date Applied:
