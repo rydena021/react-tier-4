@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Resources extends Component {
 
@@ -32,4 +32,4 @@ class Resources extends Component {
   }
 }
 
-export default Resources;
+export default Resources

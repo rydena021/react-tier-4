@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class ContactForm extends Component {
   state = {
@@ -17,16 +17,16 @@ class ContactForm extends Component {
   handleInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    });
+    })
   }
 
   addContact = (event) => {
-    event.preventDefault();
-    console.log(this.state);
+    event.preventDefault()
+    console.log(this.state)
     this.props.dispatch({
       type: 'ADD_CONTACT',
       payload: this.state,
-    });
+    })
   } // end addContact
 
   render() {
@@ -137,6 +137,6 @@ class ContactForm extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-});
+})
 
-export default connect(mapStateToProps)(ContactForm);
+export default connect(mapStateToProps)(ContactForm)

@@ -18,9 +18,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.post('/register', (req, res, next) => {
 
-  const { username, first_name, last_name, email, avatar_url, notifications, application_goal, commit_goal, meetup_goal} = req.body;
+  const { username, first_name, last_name, email, notifications, application_goal, commit_goal, meetup_goal} = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
-
+  const avatar_url = req.body.avatar_url || 'images/avatar-placeholder.png'
   const queryValues = [username, password, first_name, last_name, email, avatar_url,
                         notifications, application_goal, commit_goal, meetup_goal];
   const queryText = `INSERT INTO person (username, password, first_name, last_name, email, avatar_url,

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import ApplicationForm from './ApplicationForm';
-import ApplicationList from './ApplicationList';
+import React, { Component } from 'react'
+import ApplicationForm from './ApplicationForm'
+import ApplicationList from './ApplicationList'
 
 class Applications extends Component {
 
@@ -16,4 +16,4 @@ class Applications extends Component {
   }
 }
 
-export default Applications;
+export default Applications

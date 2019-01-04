@@ -89,6 +89,7 @@ class ApplicationForm extends Component {
               />
             </label>
           </div>
+          <label htmlFor="contact_id">Contact:
           <select name="contact_id" onChange={this.handleInputChange} value={this.state.contact_id}>
             <option value="null">None</option>
             {this.props.contacts.map( contact => {
@@ -97,6 +98,7 @@ class ApplicationForm extends Component {
               )
             })}
           </select>
+          </label>
           <div>
             <input
               type="submit"

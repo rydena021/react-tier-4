@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class ApplicationList extends Component {
   componentDidMount() {
@@ -38,6 +38,6 @@ class ApplicationList extends Component {
 
 const mapStateToProps = state => ({
   applications: state.applications,
-});
+})
 
-export default connect(mapStateToProps)(ApplicationList);
+export default connect(mapStateToProps)(ApplicationList)

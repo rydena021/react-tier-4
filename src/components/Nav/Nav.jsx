@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import LogOutButton from '../LogOutButton/LogOutButton'
+import './Nav.css'
 
 const Nav = (props) => (
   <div className="nav">
@@ -25,6 +25,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/contacts">
             Contacts
           </Link>
+          <Link className="nav-link" to="/calendar">
+            Calendar
+          </Link>
           <Link className="nav-link" to="/resources">
             Resources
           </Link>
@@ -33,15 +36,15 @@ const Nav = (props) => (
       )}
     </div>
   </div>
-);
+)
 
 // Instead of taking everything from state, we just want the user
 // object to determine if they are logged in
 // if they are logged in, we show them a few more links
 // if you wanted you could write this code like this:
-// const mapStateToProps = ({ user }) => ({ user });
+// const mapStateToProps = ({ user }) => ({ user })
 const mapStateToProps = state => ({
   user: state.user,
-});
+})
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(Nav)

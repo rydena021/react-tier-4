@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
+import React, { Component } from 'react'
+import ContactForm from './ContactForm'
+import ContactList from './ContactList'
 
 class Contacts extends Component {
 
@@ -16,4 +16,4 @@ class Contacts extends Component {
   }
 }
 
-export default Contacts;
+export default Contacts

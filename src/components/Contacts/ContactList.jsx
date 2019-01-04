@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class ContactList extends Component {
   componentDidMount() {
@@ -38,6 +38,6 @@ class ContactList extends Component {
 
 const mapStateToProps = state => ({
   contacts: state.contacts,
-});
+})
 
-export default connect(mapStateToProps)(ContactList);
+export default connect(mapStateToProps)(ContactList)

@@ -1,21 +1,22 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   HashRouter as Router,
   Route,
   Redirect,
   Switch,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import {connect} from 'react-redux';
+import {connect} from 'react-redux'
 
-import Nav from '../Nav/Nav';
+import Nav from '../Nav/Nav'
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import Dashboard from '../Dashboard/Dashboard';
-import Applications from '../Applications/Applications';
-import Contacts from '../Contacts/Contacts';
-import Resources from '../Resources/Resources';
+import Dashboard from '../Dashboard/Dashboard'
+import Applications from '../Applications/Applications'
+import Contacts from '../Contacts/Contacts'
+import Resources from '../Resources/Resources'
+import Calendar from '../Calendar/Calendar'
 
 
 class App extends Component {
@@ -55,6 +56,11 @@ class App extends Component {
               path="/resources"
               component={Resources}
             />
+            <ProtectedRoute
+              exact
+              path="/calendar"
+              component={Calendar}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
@@ -63,4 +69,4 @@ class App extends Component {
   )}
 }
 
-export default connect()(App);
+export default connect()(App)

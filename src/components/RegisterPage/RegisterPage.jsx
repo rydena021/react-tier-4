@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 class RegisterPage extends Component {
   state = {
@@ -13,25 +13,24 @@ class RegisterPage extends Component {
     application_goal: 10,
     commit_goal: 5,
     meetup_goal: 1,
-  };
+  }
 
   registerUser = (event) => {
-    event.preventDefault();
-
+    event.preventDefault()
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: this.state,
-      });
+      })
     } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'})
     }
   } // end registerUser
 
   handleInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    });
+    })
   }
 
   render() {
@@ -176,16 +175,16 @@ class RegisterPage extends Component {
           </button>
         </center>
       </div>
-    );
+    )
   }
 }
 
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
+// const mapStateToProps = ({errors}) => ({ errors })
 const mapStateToProps = state => ({
   errors: state.errors,
-});
+})
 
-export default connect(mapStateToProps)(RegisterPage);
+export default connect(mapStateToProps)(RegisterPage)
 
