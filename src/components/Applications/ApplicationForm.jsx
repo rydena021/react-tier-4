@@ -15,6 +15,7 @@ class ApplicationForm extends Component {
   componentDidMount(){
     this.props.dispatch({ type: 'FETCH_CONTACTS' })
   }
+  
   handleInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,

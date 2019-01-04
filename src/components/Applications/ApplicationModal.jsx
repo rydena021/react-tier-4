@@ -9,17 +9,38 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
 
 const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   fab: {
     margin: theme.spacing.unit,
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
   },
 });
 
 
-class FormDialog extends Component {
+class NewApplicationModal extends Component {
   state = {
     open: false,
+    user_id: this.props.user.id,
+    contact_id: null,
+    position: '',
+    company: '',
+    posting_url: '',
+    date_applied: '',
+    comments: '',
+  }
+
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_CONTACTS' })
   }
 
   handleClickOpen = () => {
@@ -30,44 +51,116 @@ class FormDialog extends Component {
     this.setState({ open: false })
   }
 
+  handleInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(this.state);
+
+    // this.props.dispatch({
+    //   type: 'ADD_APPLICATION',
+    //   payload: this.state,
+    // })
+    this.handleClose();
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleClickOpen}>
+        <Fab color="primary" className={classes.fab} onClick={this.handleClickOpen}>
           <AddIcon />
         </Fab>
         <br/>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
           Add New Application
         </Button>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">New Application</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Submit
-            </Button>
-          </DialogActions>
-        </Dialog>
+
+
+
+        <form className={classes.container} noValidate>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+          >
+            <DialogTitle id="form-dialog-title">New Application</DialogTitle>
+            <DialogContent>
+              <TextField
+                required
+                label="Position"
+                name="position"
+                className={classes.textField}
+                value={this.state.position}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br/>
+              <TextField
+                required
+                label="Company"
+                name="company"
+                className={classes.textField}
+                value={this.state.company}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br/>
+              <TextField
+                required
+                label="Date Applied"
+                name="date_applied"
+                type="date"
+                value={this.state.date_applied}
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br/>
+              <TextField
+                label="Posting URL"
+                name="posting_url"
+                className={classes.textField}
+                value={this.state.posting_url}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
+                label="Comments"
+                name="comments"
+                multiline
+                rowsMax="8"
+                value={this.state.comments}
+                className={classes.textField}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleSubmit} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </form>
       </div>
     )
   }
 }
-export default withStyles(styles)(FormDialog)
+
+const mapStateToProps = state => ({
+  user: state.user,
+  contacts: state.contacts
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(NewApplicationModal))
