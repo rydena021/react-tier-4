@@ -15,6 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Dashboard from '../Dashboard/Dashboard';
 import Applications from '../Applications/Applications';
 import Contacts from '../Contacts/Contacts';
+import Resources from '../Resources/Resources';
 
 
 class App extends Component {
@@ -48,6 +49,11 @@ class App extends Component {
               exact
               path="/contacts"
               component={Contacts}
+            />
+            <ProtectedRoute
+              exact
+              path="/resources"
+              component={Resources}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ApplicationsTable extends Component {
+class ApplicationList extends Component {
   componentDidMount() {
     this.props.dispatch({type: 'FETCH_APPLICATIONS'})
   }
@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
   applications: state.applications,
 });
 
-export default connect(mapStateToProps)(ApplicationsTable);
+export default connect(mapStateToProps)(ApplicationList);

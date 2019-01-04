@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('POST application error: ', err);
+      console.log('GET application error: ', err);
     });
 });
 

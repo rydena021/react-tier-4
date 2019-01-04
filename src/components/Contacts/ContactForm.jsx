@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ApplicationsForm extends Component {
+class ContactForm extends Component {
   state = {
     user_id: this.props.user.id,
-    contact_id: null,
-    position: '',
+    date_met: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
     company: '',
-    posting_url: '',
-    date_applied: '',
+    linkedin_url: '',
     comments: '',
   }
 
@@ -18,38 +20,71 @@ class ApplicationsForm extends Component {
     });
   }
 
-  addApplication = (event) => {
+  addContact = (event) => {
     event.preventDefault();
     console.log(this.state);
     this.props.dispatch({
-      type: 'ADD_APPLICATION',
+      type: 'ADD_CONTACT',
       payload: this.state,
     });
-  } // end addApplication
+  } // end addContact
 
   render() {
     return (
       <div>
-        <form onSubmit={this.addApplication}>
-          <h3>New Application</h3>
+        <form onSubmit={this.addContact}>
+          <h3>New Contact</h3>
           <div>
-            <label htmlFor="date_applied">
-              Date Applied:
+            <label htmlFor="date_met">
+              Date Met:
               <input
                 type="date"
-                name="date_applied"
-                value={this.state.date_applied}
+                name="date_met"
+                value={this.state.date_met}
                 onChange={this.handleInputChange}
               />
             </label>
           </div>
           <div>
-            <label htmlFor="position">
-              Position:
+            <label htmlFor="first_name">
+              First Name:
               <input
                 type="text"
-                name="position"
-                value={this.state.position}
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="last_name">
+              Last Name:
+              <input
+                type="text"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="email">
+              Email:
+              <input
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="phone">
+              Phone:
+              <input
+                type="text"
+                name="phone"
+                value={this.state.phone}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -66,12 +101,12 @@ class ApplicationsForm extends Component {
             </label>
           </div>
           <div>
-            <label htmlFor="posting_url">
-              Job Posting URL:
+            <label htmlFor="linkedin_url">
+              LinkedIn URL:
               <input
                 type="text"
-                name="posting_url"
-                value={this.state.posting_url}
+                name="linkedin_url"
+                value={this.state.linkedin_url}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -104,4 +139,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(ApplicationsForm);
+export default connect(mapStateToProps)(ContactForm);

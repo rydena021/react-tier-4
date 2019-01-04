@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ApplicationsForm from './ApplicationsForm';
-import ApplicationsTable from './ApplicationsTable';
+import ApplicationForm from './ApplicationForm';
+import ApplicationList from './ApplicationList';
 
 class Applications extends Component {
 
@@ -8,9 +8,9 @@ class Applications extends Component {
     return (
       <div>
         <h1>Applications</h1>
-        <ApplicationsForm />
+        <ApplicationForm />
         <hr />
-        <ApplicationsTable />
+        <ApplicationList />
       </div>
     )
   }
