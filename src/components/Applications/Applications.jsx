@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ApplicationForm from './ApplicationForm'
 import ApplicationList from './ApplicationList'
+import ApplicationModal from './ApplicationModal'
+
 
 class Applications extends Component {
 
@@ -10,6 +12,7 @@ class Applications extends Component {
         <h1>Applications</h1>
         <ApplicationForm />
         <hr />
+        <ApplicationModal />
         <ApplicationList />
       </div>
     )

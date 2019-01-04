@@ -9,7 +9,7 @@ class ApplicationList extends Component {
   render() {
     return (
       <div>
-        <h3>Applications Table</h3>
+        <h3>Application List</h3>
         <table>
           <thead>
             <tr>
