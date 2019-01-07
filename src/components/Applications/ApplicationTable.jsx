@@ -21,8 +21,8 @@ import FormControl from '@material-ui/core/FormControl'
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    marginTop: theme.spacing.unit * 3,
   },
   table: {
     minWidth: 700,
@@ -30,7 +30,7 @@ const styles = theme => ({
   tableRow: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.grey[200],
+      backgroundColor: theme.palette.grey[700],
     },
   },
   container: {

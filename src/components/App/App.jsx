@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -22,6 +21,8 @@ import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import ContactIcon from '@material-ui/icons/ContactPhone';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from '@material-ui/core/styles';
 import Content from './Content'
 
 const drawerWidth = 240;
@@ -36,6 +37,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: '#F3F3F4'
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -48,6 +50,8 @@ const styles = theme => ({
   menuButton: {
     marginLeft: 12,
     marginRight: 36,
+    color: '#ffffff',
+    backgroundColor: '#4AA79E'
   },
   hide: {
     display: 'none',
@@ -84,7 +88,29 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 3,
+  },
+});
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#4AA79E'
+    },
+    secondary: {
+      main: '#F3F3F4'
+    },
+    default: {
+      main: '#686A6C'
+    },
+    background: {
+      paper: '#222222',
+      default: "#F3F3F4"
+    },
+  },
+  typography: {
+    useNextVariants: true,
   },
 });
 
@@ -102,92 +128,94 @@ class MiniDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return (
       <Router>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: this.state.open,
-          })}
-        >
-          <Toolbar disableGutters={!this.state.open}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, {
-                [classes.hide]: this.state.open,
+        <MuiThemeProvider theme={theme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <AppBar
+              position="fixed"
+              className={classNames(classes.appBar, {
+                [classes.appBarShift]: this.state.open,
               })}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Tier 4
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="permanent"
-          className={classNames(classes.drawer, {
-            [classes.drawerOpen]: this.state.open,
-            [classes.drawerClose]: !this.state.open,
-          })}
-          classes={{
-            paper: classNames({
-              [classes.drawerOpen]: this.state.open,
-              [classes.drawerClose]: !this.state.open,
-            }),
-          }}
-          open={this.state.open}
-        >
-          <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+              <Toolbar disableGutters={!this.state.open}>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={this.handleDrawerOpen}
+                  className={classNames(classes.menuButton, {
+                    [classes.hide]: this.state.open,
+                  })}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" color="primary" noWrap>
+                  Tier 4
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              variant="permanent"
+              className={classNames(classes.drawer, {
+                [classes.drawerOpen]: this.state.open,
+                [classes.drawerClose]: !this.state.open,
+              })}
+              classes={{
+                paper: classNames({
+                  [classes.drawerOpen]: this.state.open,
+                  [classes.drawerClose]: !this.state.open,
+                }),
+              }}
+              open={this.state.open}
+            >
+              <div className={classes.toolbar}>
+                <IconButton onClick={this.handleDrawerClose}>
+                  <ChevronRightIcon />
+                </IconButton>
+              </div>
+              <Divider />
+              <List>
+                <Link to="/dashboard">
+                  <ListItem button key='dashboard'>
+                    <ListItemIcon><AccountIcon /></ListItemIcon>
+                    <ListItemText primary={'Dashboard'} />
+                  </ListItem>
+                </Link>
+                <Link to="/applications">
+                  <ListItem button key='applications'>
+                    <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                    <ListItemText primary={'Applications'} />
+                  </ListItem>
+                </Link>
+                <Link to="/contacts">
+                  <ListItem button key='contacts'>
+                    <ListItemIcon><ContactIcon /></ListItemIcon>
+                    <ListItemText primary={'Contacts'} />
+                  </ListItem>
+                </Link>
+                <Link to="/calendar">
+                  <ListItem button key='Calendar'>
+                    <ListItemIcon><EventIcon /></ListItemIcon>
+                    <ListItemText primary={'Calendar'} />
+                  </ListItem>
+                </Link>
+                <Link to="/resources">
+                  <ListItem button key='Resources'>
+                    <ListItemIcon><BookmarksIcon /></ListItemIcon>
+                    <ListItemText primary={'Resources'} />
+                  </ListItem>
+                </Link>
+              </List>
+            </Drawer>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Content />
+            </main>
           </div>
-          <Divider />
-          <List>
-            <Link to="/dashboard">
-              <ListItem button key='dashboard'>
-                <ListItemIcon><AccountIcon /></ListItemIcon>
-                <ListItemText primary={'Dashboard'} />
-              </ListItem>
-            </Link>
-            <Link to="/applications">
-              <ListItem button key='applications'>
-                <ListItemIcon><AssignmentIcon /></ListItemIcon>
-                <ListItemText primary={'Applications'} />
-              </ListItem>
-            </Link>
-            <Link to="/contacts">
-              <ListItem button key='contacts'>
-                <ListItemIcon><ContactIcon /></ListItemIcon>
-                <ListItemText primary={'Contacts'} />
-              </ListItem>
-            </Link>
-            <Link to="/calendar">
-              <ListItem button key='Calendar'>
-                <ListItemIcon><EventIcon /></ListItemIcon>
-                <ListItemText primary={'Calendar'} />
-              </ListItem>
-            </Link>
-            <Link to="/resources">
-              <ListItem button key='Resources'>
-                <ListItemIcon><BookmarksIcon /></ListItemIcon>
-                <ListItemText primary={'Resources'} />
-              </ListItem>
-            </Link>
-          </List>
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Content />
-        </main>
-      </div>
+        </MuiThemeProvider>
       </Router>
     );
   }

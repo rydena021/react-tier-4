@@ -1,21 +1,32 @@
 import React, { Component } from 'react'
 import ApplicationModal from './ApplicationModal'
 import ApplicationTable from './ApplicationTable'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  header: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    color: '#686A6C',
+    padding: theme.spacing.unit * 3,
+  },
+});
 
 class Applications extends Component {
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <h1>Applications</h1>
-        <hr />
+        <Typography className={classes.header} variant="h4" gutterBottom>
+          Applications
+        </Typography>
         <ApplicationModal />
-        <hr/>
         <ApplicationTable />
       </div>
     )
   }
 }
 
-export default Applications
+export default withStyles(styles)(Applications)

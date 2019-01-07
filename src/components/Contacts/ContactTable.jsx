@@ -26,7 +26,7 @@ const styles = theme => ({
   tableRow: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.grey[200],
+      backgroundColor: theme.palette.grey[700],
     },
   },
   container: {
