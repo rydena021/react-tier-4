@@ -5,14 +5,10 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import AddIcon from '@material-ui/icons/Add'
+import Fab from '@material-ui/core/Fab'
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 
 const styles = theme => ({
@@ -32,23 +28,21 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     minWidth: 300,
   },
-});
+})
 
 
-class ApplicationModal extends Component {
+class ContactModal extends Component {
   state = {
     open: false,
     user_id: this.props.user.id,
-    contact_id: '',
-    position: '',
+    date_met: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
     company: '',
-    posting_url: '',
-    date_applied: '',
+    linkedin_url: '',
     comments: '',
-  }
-
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_CONTACTS' })
   }
 
   handleClickOpen = () => {
@@ -59,11 +53,13 @@ class ApplicationModal extends Component {
     this.setState({
       open: false,
       user_id: this.props.user.id,
-      contact_id: '',
-      position: '',
+      date_met: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
       company: '',
-      posting_url: '',
-      date_applied: '',
+      linkedin_url: '',
       comments: '',
     })
   }
@@ -77,14 +73,14 @@ class ApplicationModal extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.dispatch({
-      type: 'ADD_APPLICATION',
+      type: 'ADD_CONTACT',
       payload: this.state,
     })
-    this.handleClose();
+    this.handleClose()
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <div>
         <Fab color="primary" className={classes.fab} onClick={this.handleClickOpen}>
@@ -96,20 +92,28 @@ class ApplicationModal extends Component {
             open={this.state.open}
             onClose={this.handleClose}
           >
-            <DialogTitle id="form-dialog-title">New Application</DialogTitle>
+            <DialogTitle id="form-dialog-title">New Contact</DialogTitle>
             <DialogContent>
               <TextField
                 required
-                label="Position"
-                name="position"
+                label="First Name"
+                name="first_name"
                 className={classes.textField}
-                value={this.state.position}
+                value={this.state.first_name}
                 onChange={this.handleInputChange}
                 margin="normal"
               />
               <br/>
               <TextField
-                required
+                label="Last Name"
+                name="last_name"
+                className={classes.textField}
+                value={this.state.last_name}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br/>
+              <TextField
                 label="Company"
                 name="company"
                 className={classes.textField}
@@ -119,11 +123,28 @@ class ApplicationModal extends Component {
               />
               <br/>
               <TextField
-                required
-                label="Date Applied"
-                name="date_applied"
+                label="Phone"
+                name="phone"
+                className={classes.textField}
+                value={this.state.phone}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
+                label="Email"
+                name="email"
+                className={classes.textField}
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
+                label="Date Met"
+                name="date_met"
                 type="date"
-                value={this.state.date_applied}
+                value={this.state.date_met}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -133,10 +154,10 @@ class ApplicationModal extends Component {
               />
               <br/>
               <TextField
-                label="Posting URL"
-                name="posting_url"
+                label="LinkedIn URL"
+                name="linkedin_url"
                 className={classes.textField}
-                value={this.state.posting_url}
+                value={this.state.linkedin_url}
                 onChange={this.handleInputChange}
                 margin="normal"
               />
@@ -151,32 +172,13 @@ class ApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br/>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="contact_id">Contact</InputLabel>
-                <Select
-                  value={this.state.contact_id}
-                  onChange={this.handleInputChange}
-                  name="contact_id"
-                  id="contact_id"
-                  // displayEmpty
-                >
-                  <MenuItem value='none'>
-                    <em>None</em>
-                  </MenuItem>
-                  {this.props.contacts.map( contact => {
-                    return (
-                      <MenuItem value={contact.id} key={contact.id}>{contact.first_name + ' ' + contact.last_name}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
+
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              {this.state.position && this.state.company && this.state.date_applied ?
+              {this.state.first_name ?
                 <Button onClick={this.handleSubmit} color="primary">
                   Submit
                 </Button>
@@ -198,4 +200,4 @@ const mapStateToProps = state => ({
   contacts: state.contacts
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(ApplicationModal))
+export default connect(mapStateToProps)(withStyles(styles)(ContactModal))

@@ -1,27 +1,46 @@
-import { put, takeEvery } from 'redux-saga/effects';
-import axios from 'axios';
+import { put, takeEvery } from 'redux-saga/effects'
+import axios from 'axios'
 
 function* addContact(action) {
   try {
-    yield axios.post('api/contacts', action.payload);
-    yield put({ type: 'FETCH_CONTACTS' });
+    yield axios.post('api/contacts', action.payload)
+    yield put({ type: 'FETCH_CONTACTS' })
   } catch (error) {
-    console.log('Error POSTING contact:', error);
+    console.log('Error POSTING contact:', error)
   }
 }
 
 function* fetchContacts() {
   try {
-    const response = yield axios.get('api/contacts');
-    yield put({ type: 'SET_CONTACTS', payload: response.data });
+    const response = yield axios.get('api/contacts')
+    yield put({ type: 'SET_CONTACTS', payload: response.data })
   } catch (error) {
-    console.log('Error GETTING contacts:', error);
+    console.log('Error GETTING contacts:', error)
   }
 }
 
-function* registrationSaga() {
-  yield takeEvery('ADD_CONTACT', addContact);
-  yield takeEvery('FETCH_CONTACTS', fetchContacts);
+function* editContact(action) {
+  try {
+    yield axios.put(`api/contacts/${action.payload.contact_id}`, action.payload)
+    yield put({ type: 'FETCH_CONTACTS' })
+  } catch (error) {
+    console.log('Error PUTTING Contact:', error)
+  }
 }
 
-export default registrationSaga;
+function* deleteContact(action) {
+  try {
+    yield axios.delete(`api/contacts/${action.payload.id}`)
+    yield put({ type: 'FETCH_CONTACTS' })
+  } catch (error) {
+    console.log('Error DELETING Contact:', error)
+  }
+}
+function* registrationSaga() {
+  yield takeEvery('ADD_CONTACT', addContact)
+  yield takeEvery('FETCH_CONTACTS', fetchContacts)
+  yield takeEvery('EDIT_CONTACT', editContact)
+  yield takeEvery('DELETE_CONTACT', deleteContact)
+}
+
+export default registrationSaga

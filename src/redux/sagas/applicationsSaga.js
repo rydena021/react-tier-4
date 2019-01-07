@@ -21,12 +21,19 @@ function* fetchApplications() {
 
 function* editApplication(action) {
   try {
-    console.log(action.payload);
-    
-    // yield axios.put('api/applications', action.payload)
-    // yield put({ type: 'FETCH_APPLICATIONS' })
+    yield axios.put(`api/applications/${action.payload.application_id}`, action.payload)
+    yield put({ type: 'FETCH_APPLICATIONS' })
   } catch (error) {
     console.log('Error PUTTING application:', error)
+  }
+}
+
+function* deleteApplication(action) {
+  try {
+    yield axios.delete(`api/applications/${action.payload.id}`)
+    yield put({ type: 'FETCH_APPLICATIONS' })
+  } catch (error) {
+    console.log('Error DELETING application:', error)
   }
 }
 
@@ -34,7 +41,7 @@ function* registrationSaga() {
   yield takeEvery('ADD_APPLICATION', addApplication)
   yield takeEvery('FETCH_APPLICATIONS', fetchApplications)
   yield takeEvery('EDIT_APPLICATION', editApplication)
-
+  yield takeEvery('DELETE_APPLICATION', deleteApplication)
 }
 
 export default registrationSaga

@@ -13,10 +13,6 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import Select from '@material-ui/core/Select'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
 
 const styles = theme => ({
   root: {
@@ -48,30 +44,35 @@ const styles = theme => ({
   },
 })
 
-class SimpleTable extends Component {
+class ContactTable extends Component {
 
   state = {
     open: false,
     user_id: this.props.user.id,
     contact_id: '',
-    position: '',
+    date_met: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
     company: '',
-    posting_url: '',
-    date_applied: '',
+    linkedin_url: '',
     comments: '',
   }
 
-  handleClickOpen = (application) => {
+  handleClickOpen = (contact) => {
     this.setState({
       open: true,
-      application_id: application.id,
+      contact_id: contact.id,
       user_id: this.props.user.id,
-      contact_id: application.contact_id,
-      position: application.position,
-      company: application.company,
-      posting_url: application.posting_url,
-      date_applied: application.date_applied_mui,
-      comments: application.comments,
+      date_met: contact.date_met_mui,
+      first_name: contact.first_name,
+      last_name: contact.last_name,
+      email: contact.email,
+      phone: contact.phone,
+      company: contact.company,
+      linkedin_url: contact.linkedin_url,
+      comments: contact.comments,
     })
   }
 
@@ -82,7 +83,7 @@ class SimpleTable extends Component {
   }
 
   handleDelete = (id) => {
-    this.props.dispatch({ type: 'DELETE_APPLICATION', payload: {id} })
+    this.props.dispatch({ type: 'DELETE_CONTACT', payload: { id } })
     this.handleClose()
   }
 
@@ -95,14 +96,14 @@ class SimpleTable extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.dispatch({
-      type: 'EDIT_APPLICATION',
+      type: 'EDIT_CONTACT',
       payload: this.state,
     })
     this.handleClose()
   }
 
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
+    this.props.dispatch({ type: 'FETCH_CONTACTS' })
   }
 
   render() {
@@ -113,20 +114,20 @@ class SimpleTable extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Position</TableCell>
+                <TableCell>Name</TableCell>
                 <TableCell >Company</TableCell>
-                <TableCell >Date Applied</TableCell>
+                <TableCell >Date Met</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.props.applications.map(application => {
+              {this.props.contacts.map(contact => {
                 return (
-                  <TableRow onClick={() => this.handleClickOpen(application)} className={classes.tableRow} key={application.id}>
+                  <TableRow onClick={() => this.handleClickOpen(contact)} className={classes.tableRow} key={contact.id}>
                     <TableCell component="th" scope="row">
-                      {application.position}
+                      {contact.first_name + ' ' + contact.last_name}
                     </TableCell>
-                    <TableCell >{application.company}</TableCell>
-                    <TableCell >{application.date_applied}</TableCell>
+                    <TableCell >{contact.company}</TableCell>
+                    <TableCell >{contact.date_met}</TableCell>
                   </TableRow>
                 )
               })}
@@ -138,20 +139,28 @@ class SimpleTable extends Component {
             open={this.state.open}
             onClose={this.handleClose}
           >
-            <DialogTitle id="form-dialog-title">Edit Application</DialogTitle>
+            <DialogTitle id="form-dialog-title">Edit Contact</DialogTitle>
             <DialogContent>
               <TextField
                 required
-                label="Position"
-                name="position"
+                label="First Name"
+                name="first_name"
                 className={classes.textField}
-                value={this.state.position}
+                value={this.state.first_name}
                 onChange={this.handleInputChange}
                 margin="normal"
               />
               <br />
               <TextField
-                required
+                label="Last Name"
+                name="last_name"
+                className={classes.textField}
+                value={this.state.last_name}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
                 label="Company"
                 name="company"
                 className={classes.textField}
@@ -161,11 +170,29 @@ class SimpleTable extends Component {
               />
               <br />
               <TextField
+                label="Phone"
+                name="phone"
+                className={classes.textField}
+                value={this.state.phone}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
+                label="Email"
+                name="email"
+                className={classes.textField}
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                margin="normal"
+              />
+              <br />
+              <TextField
                 required
-                label="Date Applied"
-                name="date_applied"
+                label="Date Met"
+                name="date_met"
                 type="date"
-                value={this.state.date_applied}
+                value={this.state.date_met}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -175,10 +202,10 @@ class SimpleTable extends Component {
               />
               <br />
               <TextField
-                label="Posting URL"
-                name="posting_url"
+                label="LinkedIn URL"
+                name="linkedin_url"
                 className={classes.textField}
-                value={this.state.posting_url}
+                value={this.state.linkedin_url}
                 onChange={this.handleInputChange}
                 margin="normal"
               />
@@ -193,42 +220,23 @@ class SimpleTable extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br />
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="contact_id">Contact</InputLabel>
-                <Select
-                  value={this.state.contact_id || ''}
-                  onChange={this.handleInputChange}
-                  name="contact_id"
-                  id="contact_id"
-                // displayEmpty
-                >
-                  <MenuItem value='none'>
-                    <em>None</em>
-                  </MenuItem>
-                  {this.props.contacts.map(contact => {
-                    return (
-                      <MenuItem value={contact.id} key={contact.id}>{contact.first_name + ' ' + contact.last_name}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
+
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={() => this.handleDelete(this.state.application_id)} color="secondary">
+              <Button onClick={() => this.handleDelete(this.state.contact_id)} color="secondary">
                 Delete
               </Button>
-              {this.state.position && this.state.company && this.state.date_applied ?
+              {this.state.first_name && this.state.date_met ?
                 <Button onClick={this.handleSubmit} color="primary">
                   Submit
-                </Button>
+                  </Button>
                 :
                 <Button variant="contained" color="primary" disabled >
                   Submit
-                </Button>
+                  </Button>
               }
             </DialogActions>
           </Dialog>
@@ -238,9 +246,10 @@ class SimpleTable extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
-  applications: state.applications,
-  user: state.user,
   contacts: state.contacts,
+  user: state.user
 })
-export default connect(mapStateToProps)(withStyles(styles)(SimpleTable))
+
+export default connect(mapStateToProps)(withStyles(styles)(ContactTable))

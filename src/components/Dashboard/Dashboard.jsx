@@ -6,12 +6,12 @@ class Dashboard extends Component {
 
   render() {
     const {
-      id,
+      // id,
       username,
-      first_name,
-      last_name,
+      // first_name,
+      // last_name,
       avatar_url,
-      notifications,
+      // notifications,
       application_goal,
       commit_goal,
       meetup_goal
