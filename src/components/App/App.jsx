@@ -1,72 +1,201 @@
-import React, {Component} from 'react'
-import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom'
+import React from 'react';
+import { HashRouter as Router, Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import EventIcon from '@material-ui/icons/Event';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import ContactIcon from '@material-ui/icons/ContactPhone';
+import Content from './Content'
 
-import {connect} from 'react-redux'
+const drawerWidth = 240;
 
-import Nav from '../Nav/Nav'
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing.unit * 7 + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9 + 1,
+    },
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+  },
+});
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+class MiniDrawer extends React.Component {
+  state = {
+    open: false,
+  };
 
-import Dashboard from '../Dashboard/Dashboard'
-import Applications from '../Applications/Applications'
-import Contacts from '../Contacts/Contacts'
-import Resources from '../Resources/Resources'
-import Calendar from '../Calendar/Calendar'
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
 
-
-class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
+    const { classes, theme } = this.props;
+
     return (
       <Router>
-        <div>
-          <Nav />
-          <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/dashboard" />
-            {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/dashboard will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
-          Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            <ProtectedRoute
-              exact
-              path="/dashboard"
-              component={Dashboard}
-            />
-            <ProtectedRoute
-              exact
-              path="/applications"
-              component={Applications}
-            />
-            <ProtectedRoute
-              exact
-              path="/contacts"
-              component={Contacts}
-            />
-            <ProtectedRoute
-              exact
-              path="/resources"
-              component={Resources}
-            />
-            <ProtectedRoute
-              exact
-              path="/calendar"
-              component={Calendar}
-            />
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
-          </Switch>
-        </div>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
+        >
+          <Toolbar disableGutters={!this.state.open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, {
+                [classes.hide]: this.state.open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              Tier 4
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          className={classNames(classes.drawer, {
+            [classes.drawerOpen]: this.state.open,
+            [classes.drawerClose]: !this.state.open,
+          })}
+          classes={{
+            paper: classNames({
+              [classes.drawerOpen]: this.state.open,
+              [classes.drawerClose]: !this.state.open,
+            }),
+          }}
+          open={this.state.open}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <Link to="/dashboard">
+              <ListItem button key='dashboard'>
+                <ListItemIcon><AccountIcon /></ListItemIcon>
+                <ListItemText primary={'Dashboard'} />
+              </ListItem>
+            </Link>
+            <Link to="/applications">
+              <ListItem button key='applications'>
+                <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                <ListItemText primary={'Applications'} />
+              </ListItem>
+            </Link>
+            <Link to="/contacts">
+              <ListItem button key='contacts'>
+                <ListItemIcon><ContactIcon /></ListItemIcon>
+                <ListItemText primary={'Contacts'} />
+              </ListItem>
+            </Link>
+            <Link to="/calendar">
+              <ListItem button key='Calendar'>
+                <ListItemIcon><EventIcon /></ListItemIcon>
+                <ListItemText primary={'Calendar'} />
+              </ListItem>
+            </Link>
+            <Link to="/resources">
+              <ListItem button key='Resources'>
+                <ListItemIcon><BookmarksIcon /></ListItemIcon>
+                <ListItemText primary={'Resources'} />
+              </ListItem>
+            </Link>
+          </List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Content />
+        </main>
+      </div>
       </Router>
-  )}
+    );
+  }
 }
 
-export default connect()(App)
+MiniDrawer.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(MiniDrawer);
