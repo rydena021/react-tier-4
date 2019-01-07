@@ -7,6 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
@@ -22,7 +26,11 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: 300,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 300,
   },
 });
 
@@ -31,7 +39,7 @@ class NewApplicationModal extends Component {
   state = {
     open: false,
     user_id: this.props.user.id,
-    contact_id: null,
+    contact_id: '',
     position: '',
     company: '',
     posting_url: '',
@@ -48,7 +56,16 @@ class NewApplicationModal extends Component {
   }
 
   handleClose = () => {
-    this.setState({ open: false })
+    this.setState({
+      open: false,
+      user_id: this.props.user.id,
+      contact_id: '',
+      position: '',
+      company: '',
+      posting_url: '',
+      date_applied: '',
+      comments: '',
+    })
   }
 
   handleInputChange = (event) => {
@@ -59,12 +76,10 @@ class NewApplicationModal extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state);
-
-    // this.props.dispatch({
-    //   type: 'ADD_APPLICATION',
-    //   payload: this.state,
-    // })
+    this.props.dispatch({
+      type: 'ADD_APPLICATION',
+      payload: this.state,
+    })
     this.handleClose();
   }
 
@@ -76,12 +91,6 @@ class NewApplicationModal extends Component {
           <AddIcon />
         </Fab>
         <br/>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Add New Application
-        </Button>
-
-
-
         <form className={classes.container} noValidate>
           <Dialog
             open={this.state.open}
@@ -142,14 +151,40 @@ class NewApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
+              <br/>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="contact_id">Contact</InputLabel>
+                <Select
+                  value={this.state.contact_id}
+                  onChange={this.handleInputChange}
+                  name="contact_id"
+                  id="contact_id"
+                  // displayEmpty
+                >
+                  <MenuItem value='none'>
+                    <em>None</em>
+                  </MenuItem>
+                  {this.props.contacts.map( contact => {
+                    return (
+                      <MenuItem value={contact.id} key={contact.id}>{contact.first_name + ' ' + contact.last_name}</MenuItem>
+                    )
+                  })}
+                </Select>
+              </FormControl>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={this.handleSubmit} color="primary">
-                Submit
-              </Button>
+              {this.state.position && this.state.company && this.state.date_applied ?
+                <Button onClick={this.handleSubmit} color="primary">
+                  Submit
+                </Button>
+              :
+                <Button variant="contained" color="primary" disabled >
+                  Submit
+                </Button>
+              }
             </DialogActions>
           </Dialog>
         </form>

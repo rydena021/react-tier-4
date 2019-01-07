@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
 // POST application
 router.post('/', (req, res) => {
 
-  const { user_id, contact_id, position, company, posting_url, date_applied, comments } = req.body
+  let { user_id, contact_id, position, company, posting_url, date_applied, comments } = req.body
+  if (contact_id === 'none') { contact_id = null }
   const queryValues = [user_id, contact_id, position, company, posting_url, date_applied, comments]
   const queryText = `INSERT INTO application (user_id, contact_id, position, company, posting_url,
                     date_applied, comments)

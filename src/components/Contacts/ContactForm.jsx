@@ -1,3 +1,4 @@
+// TO DO: check post to db
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -22,7 +23,6 @@ class ContactForm extends Component {
 
   addContact = (event) => {
     event.preventDefault()
-    console.log(this.state)
     this.props.dispatch({
       type: 'ADD_CONTACT',
       payload: this.state,
