@@ -5,8 +5,6 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import AddIcon from '@material-ui/icons/Add'
-import Fab from '@material-ui/core/Fab'
 
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -16,8 +14,8 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
-  fab: {
-    margin: theme.spacing.unit,
+  button: {
+    margin: theme.spacing.unit *  3,
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -31,7 +29,7 @@ const styles = theme => ({
 })
 
 
-class ContactModal extends Component {
+class AddContactModal extends Component {
   state = {
     open: false,
     user_id: this.props.user.id,
@@ -83,9 +81,9 @@ class ContactModal extends Component {
     const { classes } = this.props
     return (
       <div>
-        <Fab color="primary" className={classes.fab} onClick={this.handleClickOpen}>
-          <AddIcon />
-        </Fab>
+        <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
+          Add New Contact
+        </Button>
         <br/>
         <form className={classes.container} noValidate>
           <Dialog
@@ -200,4 +198,4 @@ const mapStateToProps = state => ({
   contacts: state.contacts
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(ContactModal))
+export default connect(mapStateToProps)(withStyles(styles)(AddContactModal))

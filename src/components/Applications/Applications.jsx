@@ -19,9 +19,11 @@ class Applications extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Typography className={classes.header} variant="h4" gutterBottom>
-          Applications
-        </Typography>
+        <div>
+          <Typography className={classes.header} variant="h4" gutterBottom>
+            Applications
+          </Typography>
+        </div>
         <AddApplicationModal />
         <Table />
       </div>
