@@ -14,6 +14,7 @@ function* fetchApplications() {
   try {
     const response = yield axios.get('api/applications')
     yield put({ type: 'SET_APPLICATIONS', payload: response.data })
+    yield put({ type: "FETCH_NOTIFICATIONS" })
   } catch (error) {
     console.log('Error GETTING applications:', error)
   }

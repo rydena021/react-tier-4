@@ -16,9 +16,9 @@ import { connect } from 'react-redux'
 function getDate() {
   var today = new Date();
   var dateString =
-                padStr(today.getFullYear()) + '-' +
-                padStr(1 + today.getMonth()) + '-' +
-                padStr(today.getDate())
+    padStr(today.getFullYear()) + '-' +
+    padStr(1 + today.getMonth()) + '-' +
+    padStr(today.getDate())
   return dateString
 }
 
@@ -45,20 +45,17 @@ const styles = theme => ({
   },
 });
 
-class ApplicationModal extends Component {
+class EditApplicationModal extends Component {
   state = {
-    open: false,
+    open: true,
+    application_id: this.props.application.id,
     user_id: this.props.user.id,
-    contact_id: '',
-    position: '',
-    company: '',
-    posting_url: '',
-    date_applied: getDate(),
-    comments: '',
-  }
-
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_CONTACTS' })
+    contact_id: this.props.application.contact_id,
+    position: this.props.application.position,
+    company: this.props.application.company,
+    posting_url: this.props.application.posting_url,
+    date_applied: this.props.application.date_applied_mui,
+    comments: this.props.application.comments,
   }
 
   handleClickOpen = () => {
@@ -86,10 +83,10 @@ class ApplicationModal extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.dispatch({
-      type: 'ADD_APPLICATION',
+      type: 'EDIT_APPLICATION',
       payload: this.state,
     })
-    this.handleClose();
+    this.props.toggleEditMode();
   }
 
   render() {
@@ -97,16 +94,12 @@ class ApplicationModal extends Component {
 
     return (
       <div>
-        <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
-          Add Application
-        </Button>
-        <br/>
         <form className={classes.container} noValidate>
           <Dialog
             open={this.state.open}
-            onClose={this.handleClose}
+            onClose={this.props.toggleEditMode}
           >
-            <DialogTitle id="form-dialog-title">New Application</DialogTitle>
+            <DialogTitle id="form-dialog-title">Edit Application</DialogTitle>
             <DialogContent>
               <TextField
                 required
@@ -117,7 +110,7 @@ class ApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br/>
+              <br />
               <TextField
                 required
                 label="Company"
@@ -127,7 +120,7 @@ class ApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br/>
+              <br />
               <TextField
                 required
                 label="Date Applied"
@@ -141,7 +134,7 @@ class ApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br/>
+              <br />
               <TextField
                 label="Posting URL"
                 name="posting_url"
@@ -161,20 +154,20 @@ class ApplicationModal extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <br/>
+              <br />
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="contact_id">Contact</InputLabel>
                 <Select
-                  value={this.state.contact_id}
+                  value={this.state.contact_id || ''}
                   onChange={this.handleInputChange}
                   name="contact_id"
                   id="contact_id"
-                  // displayEmpty
+                // displayEmpty
                 >
                   <MenuItem value='none'>
                     <em>None</em>
                   </MenuItem>
-                  {this.props.contacts.map( contact => {
+                  {this.props.contacts.map(contact => {
                     return (
                       <MenuItem value={contact.id} key={contact.id}>{contact.first_name + ' ' + contact.last_name}</MenuItem>
                     )
@@ -183,14 +176,14 @@ class ApplicationModal extends Component {
               </FormControl>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
+              <Button onClick={() => this.props.toggleEditMode()} color="primary">
                 Cancel
               </Button>
               {this.state.position && this.state.company && this.state.date_applied ?
                 <Button onClick={this.handleSubmit} color="primary">
                   Submit
                 </Button>
-              :
+                :
                 <Button variant="contained" color="primary" disabled >
                   Submit
                 </Button>
@@ -205,7 +198,8 @@ class ApplicationModal extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  contacts: state.contacts
+  contacts: state.contacts,
+  modal: state.modal
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(ApplicationModal))
+export default connect(mapStateToProps)(withStyles(styles)(EditApplicationModal))

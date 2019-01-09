@@ -22,7 +22,7 @@ const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
     padding: theme.spacing.unit * 3,
-    margin: theme.spacing.unit * 3,
+    margin: theme.spacing.unit * 5,
   },
   listRoot: {
     width: '100%',
@@ -31,6 +31,10 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
+
+  componentDidMount(){
+    this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
+  }
 
   render() {
     const { classes } = this.props;

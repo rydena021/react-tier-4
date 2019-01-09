@@ -5,10 +5,12 @@ const router = express.Router();
 // GET applications
 router.get('/', (req, res) => {
   const id = req.user.id;
-  const queryText = `SELECT id, user_id, contact_id, position, company, posting_url, comments,
-              follow_up_complete, notification_sent, to_char(date_applied, 'MM/DD/YYYY') AS date_applied,
-              to_char(date_applied, 'YYYY-MM-DD') AS date_applied_mui
-              FROM application WHERE user_id = $1 ORDER BY id ASC;`
+  const queryText = `SELECT CONCAT("contact".first_name, ' ', "contact".last_name) AS contact_name, "application".id, "application".user_id, "application".contact_id, "application".position, "application".company, "application".posting_url, "application".comments,
+              "application".follow_up_complete, "application".notification_sent, to_char("application".date_applied, 'MM/DD/YYYY') AS date_applied,
+              to_char("application".date_applied, 'YYYY-MM-DD') AS date_applied_mui
+              FROM "application"
+              LEFT JOIN "contact" ON "application".contact_id = "contact".id
+              WHERE "application".user_id = $1 ORDER BY "application".id ASC;`
   pool.query(queryText, [id])
     .then((result) => {
       res.send(result.rows);
@@ -22,7 +24,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 
   let { user_id, contact_id, position, company, posting_url, date_applied, comments } = req.body
-  if (contact_id === 'none') { contact_id = null }
+  if (contact_id === 'none' || contact_id === '') { contact_id = null }
   const queryValues = [user_id, contact_id, position, company, posting_url, date_applied, comments]
   const queryText = `INSERT INTO application (user_id, contact_id, position, company, posting_url,
                     date_applied, comments)

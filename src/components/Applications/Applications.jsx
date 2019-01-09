@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ApplicationModal from './ApplicationModal'
-import ApplicationTable from './ApplicationTable'
+import Table from './Table'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
 
@@ -23,7 +23,7 @@ class Applications extends Component {
           Applications
         </Typography>
         <ApplicationModal />
-        <ApplicationTable />
+        <Table />
       </div>
     )
   }

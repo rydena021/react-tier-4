@@ -51,7 +51,16 @@ const styles = theme => ({
     marginLeft: 12,
     marginRight: 36,
     color: '#ffffff',
-    backgroundColor: '#4AA79E'
+    backgroundColor: '#4AA79E',
+    paddingTop: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
+    paddingBottom: 1,
+    cursor: 'pointer',
+    borderRadius: 5,
+    // '&:hover': {
+    //   backgroundColor: theme.palette.grey[700],
+    // },
   },
   hide: {
     display: 'none',
@@ -142,7 +151,7 @@ class MiniDrawer extends React.Component {
               })}
             >
               <Toolbar disableGutters={!this.state.open}>
-                <IconButton
+                <div
                   color="inherit"
                   aria-label="Open drawer"
                   onClick={this.handleDrawerOpen}
@@ -151,7 +160,7 @@ class MiniDrawer extends React.Component {
                   })}
                 >
                   <MenuIcon />
-                </IconButton>
+                </div>
                 <Typography variant="h6" color="primary" noWrap>
                   Tier 4
                 </Typography>
@@ -226,4 +235,4 @@ MiniDrawer.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+export default withStyles(styles, { withTheme: true })(MiniDrawer)
