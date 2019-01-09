@@ -8,6 +8,24 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import styled from 'styled-components';
+
+function getDate() {
+  var today = new Date();
+  var dateString =
+    padStr(today.getFullYear()) + '-' +
+    padStr(1 + today.getMonth()) + '-' +
+    padStr(today.getDate())
+  return dateString
+}
+
+function padStr(i) {
+  return (i < 10) ? "0" + i : "" + i;
+}
+
+const Container = styled.div`
+ text-align: center;
+`;
 
 const styles = theme => ({
   container: {
@@ -33,7 +51,7 @@ class AddContactModal extends Component {
   state = {
     open: false,
     user_id: this.props.user.id,
-    date_met: '',
+    date_met: getDate(),
     first_name: '',
     last_name: '',
     email: '',
@@ -81,9 +99,13 @@ class AddContactModal extends Component {
     const { classes } = this.props
     return (
       <div>
-        <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
-          Add New Contact
-        </Button>
+        <Container>
+          <div>
+            <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
+              Add New Contact
+            </Button>
+          </div>
+        </Container>
         <br/>
         <form className={classes.container} noValidate>
           <Dialog

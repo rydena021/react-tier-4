@@ -24,6 +24,7 @@ class Applications extends Component {
             Applications
           </Typography>
         </div>
+        <br/>
         <AddApplicationModal />
         <Table />
       </div>

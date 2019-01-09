@@ -139,7 +139,7 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'date',
     page: 0,
-    rowsPerPage: 5,
+    rowsPerPage: 10,
     open: false,
     selectedApp: {},
     editMode: false,

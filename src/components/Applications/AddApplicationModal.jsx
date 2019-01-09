@@ -9,9 +9,13 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
+import styled from 'styled-components';
+
+const Container = styled.div`
+ text-align: center;
+`;
 
 function getDate() {
   var today = new Date();
@@ -97,9 +101,13 @@ class ApplicationModal extends Component {
 
     return (
       <div>
-        <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
-          Add Application
-        </Button>
+        <Container>
+          <div>
+            <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
+              Add Application
+            </Button>
+          </div>
+        </Container>
         <br/>
         <form className={classes.container} noValidate>
           <Dialog
