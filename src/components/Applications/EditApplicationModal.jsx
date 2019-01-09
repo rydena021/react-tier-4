@@ -13,19 +13,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 
-function getDate() {
-  var today = new Date();
-  var dateString =
-    padStr(today.getFullYear()) + '-' +
-    padStr(1 + today.getMonth()) + '-' +
-    padStr(today.getDate())
-  return dateString
-}
-
-function padStr(i) {
-  return (i < 10) ? "0" + i : "" + i;
-}
-
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -60,18 +47,6 @@ class EditApplicationModal extends Component {
 
   handleClickOpen = () => {
     this.setState({ open: true })
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false,
-      user_id: this.props.user.id,
-      contact_id: '',
-      position: '',
-      company: '',
-      posting_url: '',
-      comments: '',
-    })
   }
 
   handleInputChange = (event) => {

@@ -1,15 +1,12 @@
-import { select, put, takeEvery } from 'redux-saga/effects'
+import { select, takeEvery } from 'redux-saga/effects'
 
 const getApplications = (state) => state.applications
 
 function* fetchNotifications() {
   try {
     let applications = yield select(getApplications);
-
-    console.log('fetching notis:', applications);
-
+    console.log('notifications fetched:', applications);
   } catch (error) {
-    console.log('Error FETCHING notifications:', error)
   }
 }
 

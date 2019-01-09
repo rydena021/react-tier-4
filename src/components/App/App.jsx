@@ -24,6 +24,7 @@ import ContactIcon from '@material-ui/icons/ContactPhone';
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from '@material-ui/core/styles';
 import Content from './Content'
+import './App.css'
 
 const drawerWidth = 240;
 
@@ -161,8 +162,8 @@ class MiniDrawer extends React.Component {
                 >
                   <MenuIcon />
                 </div>
-                <Typography variant="h6" color="primary" noWrap>
-                  Tier 4
+                <Typography variant="h6" color="primary" noWrap className="nav-logo">
+                    Tier 4
                 </Typography>
               </Toolbar>
             </AppBar>

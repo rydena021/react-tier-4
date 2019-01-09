@@ -156,10 +156,10 @@ class EnhancedTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleClickOpen = (n) => {
+  handleClickOpen = (application) => {
     this.setState({
       open: true,
-      selectedApp: n
+      selectedApp: application
     });
   };
 
@@ -187,7 +187,10 @@ class EnhancedTable extends React.Component {
   };
 
   handleDelete = (id) => {
-    this.props.dispatch({ type: 'DELETE_APPLICATION', payload: { id } })
+    var result = window.confirm("Want to delete?");
+    if (result) {
+      this.props.dispatch({ type: 'DELETE_APPLICATION', payload: { id } })
+    }
   }
 
   render() {
@@ -195,7 +198,8 @@ class EnhancedTable extends React.Component {
     const { order, orderBy, rowsPerPage, page } = this.state;
     const data = this.props.applications
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
+    let sortedData;
+    orderBy === 'date_applied' ? sortedData = sortDate(data, order) : sortedData = stableSort(data, getSorting(order, orderBy));
     return (
       <div>
         <Paper className={classes.root}>
@@ -217,66 +221,38 @@ class EnhancedTable extends React.Component {
                 <col style={{ width: '4%' }} />
               </colgroup>
               <TableBody>
-                {orderBy === 'date_applied' ?
-                  sortDate(data, order)
+                {sortedData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map(n => {
+                    .map(application => {
                       return (
                         <TableRow
                           hover
                           role="checkbox"
                           tabIndex={-1}
-                          key={n.id}
+                          key={application.id}
                         >
-                          <TableCell component="th" scope="row" onClick={() => this.handleClickOpen(n)}>{n.date_applied}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{n.position}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{n.company}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{
-                            (n.contact_name) ?
-                            n.contact_name
+                          <TableCell component="th" scope="row" onClick={() => this.handleClickOpen(application)}>{application.date_applied}</TableCell>
+                          <TableCell align="right" onClick={() => this.handleClickOpen(application)}>{application.position}</TableCell>
+                          <TableCell align="right" onClick={() => this.handleClickOpen(application)}>{application.company}</TableCell>
+                          <TableCell align="right" onClick={() => this.handleClickOpen(application)}>{
+                            (application.contact_name === null || application.contact_name === ' ') ?
+                            'None'
                             :
-                            ''
+                            application.contact_name
                           }</TableCell>
-                          <TableCell align="right" className={classes.icon}>
-                            <LinkIcon />
-                          </TableCell>
-                          <TableCell align="right" className={classes.icon} onClick={() => this.handleDelete(n.id)}>
-                            <DeleteIcon />
-                          </TableCell>
-                          <TableCell align="right" className={classes.icon} onClick={()=>this.handleEditOpen(n)}>
+                          {application.posting_url ?
+                            <TableCell align="right" component="a" target="_blank" href={application.posting_url} className={classes.icon}>
+                                <LinkIcon />
+                            </TableCell>
+                            :
+                            <TableCell align="right" >
+                            </TableCell>
+                          }
+                          <TableCell align="right" className={classes.icon} onClick={()=>this.handleEditOpen(application)}>
                             <EditIcon />
                           </TableCell>
-                        </TableRow>
-                      );
-                    })
-                  :
-                  stableSort(data, getSorting(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map(n => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={n.id}
-                        >
-                          <TableCell component="th" scope="row" onClick={() => this.handleClickOpen(n)}>{n.date_applied}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{n.position}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{n.company}</TableCell>
-                          <TableCell align="right" onClick={() => this.handleClickOpen(n)}>{
-                            (n.contact_name) ?
-                              n.contact_name
-                              :
-                              ''
-                          }</TableCell>
-                          <TableCell align="right" className={classes.icon}>
-                            <LinkIcon />
-                          </TableCell>
-                          <TableCell align="right" className={classes.icon} onClick={() => this.handleDelete(n.id)}>
+                          <TableCell align="right" className={classes.icon} onClick={() => this.handleDelete(application.id)}>
                             <DeleteIcon />
-                          </TableCell>
-                          <TableCell align="right" className={classes.icon} onClick={() => this.handleEditOpen(n)}>
-                            <EditIcon />
                           </TableCell>
                         </TableRow>
                       );
