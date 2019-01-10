@@ -9,7 +9,11 @@ CREATE TABLE "person" (
     "notifications" BOOLEAN DEFAULT TRUE,
     "application_goal" INTEGER DEFAULT 10,
     "commit_goal" INTEGER DEFAULT 5,
-    "meetup_goal" INTEGER DEFAULT 1
+    "meetup_goal" INTEGER DEFAULT 1,
+    "start_of_week" DATE,
+    "applications_submitted" INTEGER DEFAULT 0,
+    "meetups_attended" INTEGER DEFAULT 0,
+    "github_commits" INTEGER DEFAULT 0,
 );
 
 
