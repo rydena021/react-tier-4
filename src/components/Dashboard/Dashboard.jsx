@@ -11,6 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PeopleIcon from '@material-ui/icons/People';
+import moment from 'moment';
 
 const styles = theme => ({
   header: {
@@ -34,11 +35,22 @@ class Dashboard extends Component {
 
   componentDidMount(){
     this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
+    this.isNewWeek()
+  }
+
+  isNewWeek = () => {
+    let start_of_week = moment(this.props.user.start_of_week)
+    let today = moment(new Date());
+    if (today.diff(start_of_week, 'days') > 7) {
+      start_of_week = today.day(0)._d;
+      this.props.dispatch({ type: 'RESET_GOALS', payload: {start_of_week, user_id: this.props.user.id } })
+    }
   }
 
   render() {
     const { classes } = this.props;
-    const { username, avatar_url, application_goal, commit_goal, meetup_goal } = this.props.user
+    const { username, avatar_url, application_goal, commit_goal, meetup_goal, applications_submitted, github_commits, meetups_attended } = this.props.user
+
     return (
       <div>
         <Typography className={classes.header} variant="h4" gutterBottom>
@@ -60,19 +72,19 @@ class Dashboard extends Component {
               <Avatar>
                 <AssignmentIcon />
               </Avatar>
-              <ListItemText primary="Applications Submitted:" secondary={`0/${application_goal}`} />
+              <ListItemText primary="Applications Submitted:" secondary={`${applications_submitted + '/' + application_goal}`} />
             </ListItem>
             <ListItem>
               <Avatar>
                 <CloudUploadIcon />
               </Avatar>
-              <ListItemText primary="GitHub Commits:" secondary={`0/${commit_goal}`} />
+              <ListItemText primary="GitHub Commits:" secondary={`${github_commits + '/' + commit_goal}`} />
             </ListItem>
             <ListItem>
               <Avatar>
                 <PeopleIcon />
               </Avatar>
-              <ListItemText primary="Meet Ups Attended:" secondary={`0/${meetup_goal}`} />
+              <ListItemText primary="Meet Ups Attended:" secondary={`${meetups_attended + '/' + meetup_goal}`} />
             </ListItem>
           </List>
 

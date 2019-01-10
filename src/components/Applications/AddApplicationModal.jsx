@@ -104,7 +104,7 @@ class ApplicationModal extends Component {
         <Container>
           <div>
             <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
-              Add Application
+              Add New Application
             </Button>
           </div>
         </Container>

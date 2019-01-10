@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import moment from 'moment';
 
 class RegisterPage extends Component {
   state = {
@@ -13,6 +14,7 @@ class RegisterPage extends Component {
     application_goal: 10,
     commit_goal: 5,
     meetup_goal: 1,
+    start_of_week: moment(new Date()).day(0)._d,
   }
 
   registerUser = (event) => {

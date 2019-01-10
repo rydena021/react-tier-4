@@ -69,7 +69,7 @@ class AddContactModal extends Component {
     this.setState({
       open: false,
       user_id: this.props.user.id,
-      date_met: '',
+      date_met: getDate(),
       first_name: '',
       last_name: '',
       email: '',

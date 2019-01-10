@@ -101,7 +101,7 @@ class LoginForm extends Component {
                 Register
               </Button>
               {this.state.username && this.state.password ?
-                <Button onClick={this.handleLogin} color="primary" type="submit" name="submit" value="Log In" variant="raised">
+                <Button onClick={this.handleLogin} color="primary" type="submit" name="submit" value="Log In" variant="contained">
                   Submit
                 </Button>
                 :

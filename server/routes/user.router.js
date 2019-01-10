@@ -18,14 +18,14 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.post('/register', (req, res, next) => {
 
-  const { username, first_name, last_name, email, notifications, application_goal, commit_goal, meetup_goal} = req.body;
+  const { username, first_name, last_name, email, notifications, application_goal, commit_goal, meetup_goal, start_of_week} = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
   const avatar_url = req.body.avatar_url || 'images/avatar-placeholder.png'
   const queryValues = [username, password, first_name, last_name, email, avatar_url,
-                        notifications, application_goal, commit_goal, meetup_goal];
+                        notifications, application_goal, commit_goal, meetup_goal, start_of_week];
   const queryText = `INSERT INTO person (username, password, first_name, last_name, email, avatar_url,
-                    notifications, application_goal, commit_goal, meetup_goal)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;`;
+                    notifications, application_goal, commit_goal, meetup_goal, start_of_week)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id;`;
   pool.query(queryText, queryValues)
     .then(() => { res.sendStatus(201); })
     .catch((err) => { next(err); });
@@ -45,5 +45,22 @@ router.post('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+
+router.put('/goals/:id', (req, res) => {
+  const userId = req.params.id;
+  const { start_of_week } = req.body;
+  const queryValues = [start_of_week, userId];
+  const queryText = `UPDATE person SET start_of_week = $1, applications_submitted = 0, meetups_attended = 0, github_commits = 0
+                    WHERE id = $2`;
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('PUT goals error: ', err);
+      res.sendStatus(500);
+    });
+})
 
 module.exports = router;

@@ -5,6 +5,7 @@ function* addApplication(action) {
   try {
     yield axios.post('api/applications', action.payload)
     yield put({ type: 'FETCH_APPLICATIONS' })
+    yield put({ type: 'FETCH_USER' })
   } catch (error) {
     console.log('Error POSTING application:', error)
   }

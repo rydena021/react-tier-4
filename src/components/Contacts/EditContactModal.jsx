@@ -118,7 +118,7 @@ class EditApplicationModal extends Component {
               label="Date Met"
               name="date_met"
               type="date"
-              value={this.state.date_met}
+              value={this.state.date_met || ''}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,

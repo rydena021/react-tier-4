@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
 
 // POST contact
 router.post('/', (req, res) => {
-  const { user_id, date_met, first_name, last_name, email, phone, company, linkedin_url, comments } = req.body;
+  let { user_id, date_met, first_name, last_name, email, phone, company, linkedin_url, comments } = req.body;
+  if (date_met === '') { date_met = null }
   const queryValues = [user_id, date_met, first_name, last_name, email, phone, company, linkedin_url, comments];
   const queryText = `INSERT INTO contact (user_id, date_met, first_name, last_name, email, phone,
                     company, linkedin_url, comments)
