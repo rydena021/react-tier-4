@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const styles = theme => ({
   container: {
@@ -44,6 +45,7 @@ class LoginForm extends Component {
           password: this.state.password,
         },
       })
+      this.props.history.push('/')
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' })
     }
@@ -121,4 +123,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(LoginForm))
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(LoginForm)))

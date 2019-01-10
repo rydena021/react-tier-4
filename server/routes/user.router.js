@@ -63,4 +63,20 @@ router.put('/goals/:id', (req, res) => {
     });
 })
 
+router.put('/goal/:id', (req, res) => {
+  const userId = req.params.id;
+  const { github_commits, meetups_attended } = req.body;
+  const queryValues = [github_commits, meetups_attended, userId];
+  const queryText = `UPDATE person SET github_commits = $1, meetups_attended = $2
+                    WHERE id = $3`;
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('PUT goal error: ', err);
+      res.sendStatus(500);
+    });
+})
+
 module.exports = router;

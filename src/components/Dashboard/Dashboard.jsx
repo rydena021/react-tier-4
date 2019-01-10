@@ -11,6 +11,9 @@ import Avatar from '@material-ui/core/Avatar';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PeopleIcon from '@material-ui/icons/People';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import MinusIcon from '@material-ui/icons/Remove';
 import moment from 'moment';
 
 const styles = theme => ({
@@ -29,6 +32,9 @@ const styles = theme => ({
     width: '100%',
     maxWidth: 360,
   },
+  fab: {
+    margin: theme.spacing.unit ,
+  },
 });
 
 class Dashboard extends Component {
@@ -45,6 +51,19 @@ class Dashboard extends Component {
       start_of_week = today.day(0)._d;
       this.props.dispatch({ type: 'RESET_GOALS', payload: {start_of_week, user_id: this.props.user.id } })
     }
+  }
+
+  handleClick = (name, value) => {
+    if (this.props.user[name] + value < 0) {
+      return
+    }
+    let payload = {
+      user_id: this.props.user.id,
+      github_commits: this.props.user.github_commits,
+      meetups_attended: this.props.user.meetups_attended,
+      [name]: this.props.user[name] + value,
+    }
+    this.props.dispatch({ type: 'UPDATE_GOAL', payload })
   }
 
   render() {
@@ -79,12 +98,24 @@ class Dashboard extends Component {
                 <CloudUploadIcon />
               </Avatar>
               <ListItemText primary="GitHub Commits:" secondary={`${github_commits + '/' + commit_goal}`} />
+              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', -1)}>
+                <MinusIcon />
+              </Fab>
+              <Fab size="small" color="secondary" className={classes.fab} onClick={()=>this.handleClick('github_commits', 1)}>
+                <AddIcon />
+              </Fab>
             </ListItem>
             <ListItem>
               <Avatar>
                 <PeopleIcon />
               </Avatar>
               <ListItemText primary="Meet Ups Attended:" secondary={`${meetups_attended + '/' + meetup_goal}`} />
+              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', -1)}>
+                <MinusIcon />
+              </Fab>
+              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', 1)}>
+                <AddIcon />
+              </Fab>
             </ListItem>
           </List>
 
