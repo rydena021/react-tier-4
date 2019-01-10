@@ -30,7 +30,7 @@ function* editContact(action) {
 
 function* deleteContact(action) {
   try {
-    yield axios.delete(`api/contacts/${action.payload.id}`)
+    yield axios.delete(`api/contacts/${action.payload}`)
     yield put({ type: 'FETCH_CONTACTS' })
   } catch (error) {
     console.log('Error DELETING Contact:', error)
