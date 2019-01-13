@@ -24,6 +24,9 @@ const styles = theme => ({
     color: '#686A6C',
     padding: theme.spacing.unit * 3,
   },
+  image: {
+    borderRadius: '50%'
+  },
 });
 
 class ContactsPage extends Component {
@@ -59,7 +62,9 @@ class ContactsPage extends Component {
               <Grid key={contact.id} container spacing={24}>
                 <Grid item md={1}></Grid>
                 <Grid item xs={12} md={3}>
-                  <img src="/images/avatar-placeholder.png" alt="" height='225px' width='225px' />
+                  <a href={contact.linkedin_url || '#/contacts'} target={contact.linkedin_url ? '_blank' : ''}>
+                    <img className={classes.image} src="/images/avatar-placeholder.png" alt="" height='235px' width='235px'/>
+                  </a>
                 </Grid>
                 <Grid item xs={12} md={7}>
                   <ContactCard contact={contact} handleEditOpen={this.handleEditOpen}/>

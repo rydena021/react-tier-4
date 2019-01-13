@@ -132,6 +132,10 @@ const styles = theme => ({
       backgroundColor: theme.palette.grey[700],
     },
   },
+  commentModal: {
+    minWidth: 400,
+    width: '100%'
+  },
 });
 
 class EnhancedTable extends React.Component {
@@ -290,7 +294,7 @@ class EnhancedTable extends React.Component {
             aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title">Comments</DialogTitle>
-            <DialogContent>
+            <DialogContent className={classes.commentModal}>
               <DialogContentText id="alert-dialog-description">
                {this.state.selectedApp.comments}
             </DialogContentText>

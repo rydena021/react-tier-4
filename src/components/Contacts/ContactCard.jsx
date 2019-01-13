@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 const styles = theme => ({
   card: {
     minWidth: 275,
-    height: 225,
+    height: 235,
     padding: theme.spacing.unit,
   },
   bullet: {
@@ -42,9 +42,9 @@ class SimpleCard extends React.Component {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            {contact.first_name + ' ' + contact.last_name}
+            <strong>{contact.first_name + ' ' + contact.last_name}</strong>
           </Typography>
-          <Typography className={classes.pos} color="textSecondary">
+          <Typography className={classes.pos} color="textSecondary" variant="h6" component="h2">
             {contact.company}
           </Typography>
           <Typography component="p">

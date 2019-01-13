@@ -1,0 +1,307 @@
+const RESOURCES = {
+  job_boards: [
+    {
+      name: 'TECHdotMN',
+      url: 'https://tech.mn/'
+    },
+    {
+      name: 'Craigslist',
+      url: 'https://minneapolis.craigslist.org/search/sof?'
+    },
+    {
+      name: 'The Minneapolis Egotist',
+      url: 'https://www.themplsegotist.com/'
+    },
+    {
+      name: 'Minnesota Interactive Marketing Association',
+      url: 'https://mima.org/'
+    },
+    {
+      name: 'American Institute of Graphic Arts',
+      url: 'https://www.aiga.org/'
+    },
+    {
+      name: 'Glassdoor',
+      url: 'https://www.glassdoor.com/index.htm'
+    },
+    {
+      name: 'Make It. MSP',
+      url: 'https://www.makeitmsp.org/'
+    },
+    {
+      name: 'Indeed',
+      url: 'https://www.indeed.com/'
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/jobs/'
+    },
+    {
+      name: 'GitHub Jobs',
+      url: 'https://jobs.github.com/'
+    },
+    {
+      name: 'Dice',
+      url: 'https://www.dice.com/'
+    },
+    {
+      name: 'techfetch',
+      url: 'https://www.techfetch.com/'
+    },
+    {
+      name: 'AngelList',
+      url: 'https://angel.co/'
+    },
+    {
+      name: 'Jr.DevJobs',
+      url: 'https://www.jrdevjobs.com/'
+    },
+    {
+      name: 'Product Hunt',
+      url: 'https://www.producthunt.com/jobs'
+    },
+    {
+      name: 'CrunchBoard',
+      url: 'https://www.crunchboard.com/'
+    },
+    {
+      name: 'themuse',
+      url: 'https://www.themuse.com/jobs'
+    },
+    {
+      name: 'EPIC People',
+      url: 'https://www.epicpeople.org/job-board/'
+    },
+    {
+      name: 'Behance',
+      url: 'https://www.behance.net/'
+    },
+    {
+      name: 'Stack Overflow',
+      url: 'https://stackoverflow.com/jobs'
+    },
+    {
+      name: 'ZipRecruiter',
+      url: 'https://www.ziprecruiter.com/'
+    },
+  ],
+  staffing_firms: [
+    {
+      name: 'Analysts International Corporation',
+      url: 'https://analysts.com/'
+    },
+    {
+      name: 'AIM Consulting',
+      url: 'https://aimconsulting.com/'
+    },
+    {
+      name: 'Ambient Consulting',
+      url: 'https://ambientconsulting.com/'
+    },
+    {
+      name: 'APEX Systems',
+      url: 'https://www.apexsystems.com/Pages/default.aspx'
+    },
+    {
+      name: 'AppleOne Employment Services',
+      url: 'https://www.appleone.com/'
+    },
+    {
+      name: 'Aquent',
+      url: 'https://aquent.com/'
+    },
+    {
+      name: 'Azule Staffing',
+      url: 'https://www.azulestaffing.com/'
+    },
+    {
+      name: 'Beacon Hill Staffing Group',
+      url: 'https://beaconhillstaffing.com/'
+    },
+    {
+      name: 'BlueSeal Certified Staffing',
+      url: 'https://bluesealcsi.com/'
+    },
+    {
+      name: 'Boom Lab',
+      url: 'https://theboomlab.com/'
+    },
+    {
+      name: 'Brookesource',
+      url: 'https://www.brooksource.com/'
+    },
+    {
+      name: 'Celarity',
+      url: 'https://www.celarity.com/'
+    },
+    {
+      name: 'Charter Solutions',
+      url: 'http://www.chartersolutions.com/work/'
+    },
+    {
+      name: 'Collabera',
+      url: 'https://www.collabera.com/'
+    },
+    {
+      name: 'Creatis',
+      url: 'https://www.creatis.com/'
+    },
+    {
+      name: 'DevJam',
+      url: 'https://devjam.com/'
+    },
+    {
+      name: 'Digital People',
+      url: 'http://digitalpeople.net/'
+    },
+    {
+      name: 'Digital Intelligence Systems',
+      url: 'https://www.disys.com/'
+    },
+    {
+      name: 'Doherty Staffing Solutions',
+      url: 'http://www.doherty.com/'
+    },
+    {
+      name: 'Dolphin Group Companies',
+      url: 'https://www.mydolphingroup.com/DgcMain.aspx'
+    },
+    {
+      name: 'ESP IT',
+      url: 'http://esp.com/'
+    },
+    {
+      name: 'Experis IT',
+      url: 'http://www.experis.com/'
+    },
+    {
+      name: 'Express Employment Professionals',
+      url: 'https://www.expresspros.com/'
+    },
+    {
+      name: 'Folcrum Consulting',
+      url: 'http://www.fulcrumconsult.com/'
+    },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+    // {
+    //   name: '',
+    //   url: ''
+    // },
+  ],
+  tech_meetups: [
+    {
+      name: 'TECHdotMN',
+      url: 'https://tech.mn/'
+    },
+    {
+      name: 'Meetup',
+      url: 'https://www.meetup.com/'
+    },
+    {
+      name: 'Eventbrite',
+      url: 'https://www.eventbrite.com/'
+    },
+    {
+      name: 'Minnestar',
+      url: 'https://minnestar.org/'
+    },
+    {
+      name: 'Twin Cities Startup Week',
+      url: 'https://twincitiesstartupweek.com/'
+    },
+    {
+      name: 'Twin Cities Tech Events',
+      url: 'http://tctech.events/'
+    },
+    {
+      name: 'User Experience Professionals Association',
+      url: 'https://uxpa.org/'
+    },
+    {
+      name: 'Minnesota Interactive Marketing Association',
+      url: 'https://mima.org/'
+    },
+    {
+      name: 'Ad Fed',
+      url: 'https://www.adfed.org/'
+    },
+    {
+      name: 'American Institute of Graphic Arts',
+      url: 'https://www.aiga.org/'
+    },
+    {
+      name: 'Customer Experience Professionals Association',
+      url: 'https://www.cxpa.org/home'
+    },
+  ],
+}
+
+/*
+Fox Technical Services, Inc.
+Genesis 10
+GullView Technologies
+High Impact Hires
+Hollstadt Consulting
+Horizontal Integration
+ilm
+Impact Group
+Infinity Consulting Solutions (ICS)
+InsightGlobal
+Intuitive
+iTR Group
+Latitude Group
+LogiSolve
+Minnesota Headhunter
+Modis
+MTW Recruit
+OtterBase
+Paladin Staffing
+Randstad Technologies
+Recruiters of Minnesota
+RightWay Search and Placement
+Robert Half TEchnology
+Salo
+Signature Consultants
+SkyWater Search Partners
+Slalom
+Takoda Group
+Talent Software Services
+Technical ProSource
+TEKsystems
+The Creative Group (division of Robert Half)
+TIPS Consulting
+True Talent Group
+VACO Technology
+Valere
+Versique
+York Solutions
+*/
+
+export default RESOURCES

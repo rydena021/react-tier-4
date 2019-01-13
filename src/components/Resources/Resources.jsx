@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
+import RESOURCES from './data'
 
 const styles = theme => ({
   header: {
@@ -13,9 +14,10 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
   },
   root: {
-    width: '100%',
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing.unit * 3,
+    width: '95%',
+    margin: theme.spacing.unit * 3,
   },
 });
 
@@ -32,50 +34,52 @@ class Resources extends Component {
         <Typography className={classes.header} variant="h4" gutterBottom>
           Resources
         </Typography>
+
         <div className={classes.root}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Tech Meetups
           </Typography>
           <List>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink"/>
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink"/>
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
+            { RESOURCES.tech_meetups.map( item => {
+              return (
+                <ListItemLink href={item.url} target="_blank">
+                  <ListItemText primary={item.name}/>
+                </ListItemLink>
+              )
+            })}
           </List>
         </div>
+
         <div className={classes.root}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Job Boards
           </Typography>
           <List>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
-            <ListItemLink href="https://www.google.com">
-              <ListItemText primary="Hyperlink" />
-            </ListItemLink>
+            {RESOURCES.job_boards.map(item => {
+              return (
+                <ListItemLink href={item.url} target="_blank">
+                  <ListItemText primary={item.name} />
+                </ListItemLink>
+              )
+            })}
           </List>
         </div>
+
+        <div className={classes.root}>
+          <Typography variant="h4" gutterBottom>
+            Staffing Firms
+          </Typography>
+          <List>
+            {RESOURCES.staffing_firms.map(item => {
+              return (
+                <ListItemLink href={item.url} target="_blank">
+                  <ListItemText primary={item.name} />
+                </ListItemLink>
+              )
+            })}
+          </List>
+        </div>
+
       </div>
     )
   }
