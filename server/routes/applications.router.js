@@ -1,9 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 // GET applications
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
   const queryText = `SELECT CONCAT("contact".first_name, ' ', "contact".last_name) AS contact_name,
               "application".id, "application".user_id, "application".contact_id, "application".position,
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 });
 
 // POST application
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
 
   let { user_id, contact_id, position, company, posting_url, date_applied, comments } = req.body
   if (contact_id === 'none' || contact_id === '') { contact_id = null }
@@ -47,13 +47,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// BEGIN;
-// INSERT INTO application(user_id, contact_id, position, company, posting_url, date_applied, comments)
-// VALUES($1, $2, $3, $4, $5, $6, $7);
-// UPDATE person SET applications_submitted = applications_submitted + 1 WHERE id = $1;
-// COMMIT;
-
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   let { contact_id, position, company, posting_url, date_applied, comments } = req.body
   if (contact_id === 'none') { contact_id = null }
   const applicationId = req.params.id;
@@ -71,7 +65,7 @@ router.put('/:id', (req, res) => {
     });
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const applicationId = req.params.id;
   const sqlText = `DELETE FROM application WHERE id = $1;`;
   pool.query(sqlText, [applicationId])

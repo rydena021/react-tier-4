@@ -3,6 +3,7 @@ import AddApplicationModal from './AddApplicationModal'
 import ApplicationsTable from './ApplicationsTable'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
 
 const styles = theme => ({
   header: {
@@ -14,6 +15,9 @@ const styles = theme => ({
 });
 
 class Applications extends Component {
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
+  }
 
   render() {
     const { classes } = this.props;
@@ -32,4 +36,4 @@ class Applications extends Component {
   }
 }
 
-export default withStyles(styles)(Applications)
+export default connect()(withStyles(styles)(Applications))

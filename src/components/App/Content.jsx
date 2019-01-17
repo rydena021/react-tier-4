@@ -19,7 +19,6 @@ import Calendar from '../Calendar/Calendar'
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
     this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
   }
 

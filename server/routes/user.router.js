@@ -47,7 +47,7 @@ router.post('/logout', (req, res) => {
 });
 
 
-router.put('/goals/:id', (req, res) => {
+router.put('/goals/:id', rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const { start_of_week } = req.body;
   const queryValues = [start_of_week, userId];
@@ -63,7 +63,7 @@ router.put('/goals/:id', (req, res) => {
     });
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const { first_name, last_name, email, avatar_url, notifications, application_goal, commit_goal, meetup_goal } = req.body;
   const queryValues = [first_name, last_name, email, avatar_url, notifications, application_goal, commit_goal, meetup_goal, userId];
@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
     });
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const sqlText = `DELETE FROM person WHERE id = $1;`;
   pool.query(sqlText, [userId])
@@ -94,7 +94,7 @@ router.delete('/:id', (req, res) => {
 });
 
 
-router.put('/goal/:id', (req, res) => {
+router.put('/goal/:id', rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const { github_commits, meetups_attended } = req.body;
   const queryValues = [github_commits, meetups_attended, userId];

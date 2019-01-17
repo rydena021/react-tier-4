@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET contacts
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
   const queryText = `SELECT id, user_id, first_name, last_name, phone, email, company,
                     linkedin_url, comments, to_char(date_met, 'MM/DD/YYYY') AS date_met, to_char(date_met, 'YYYY-MM-DD') AS date_met_mui
@@ -18,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 // POST contact
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   let { user_id, date_met, first_name, last_name, email, phone, company, linkedin_url, comments } = req.body;
   if (date_met === '') { date_met = null }
   const queryValues = [user_id, date_met, first_name, last_name, email, phone, company, linkedin_url, comments];
@@ -34,7 +35,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   const { date_met, first_name, last_name, email, phone, company, linkedin_url, comments } = req.body;
   const contactId = req.params.id;
   const queryValues = [date_met, first_name, last_name, email, phone, company, linkedin_url, comments, contactId];
@@ -51,12 +52,22 @@ router.put('/:id', (req, res) => {
     });
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const contactId = req.params.id;
-  const sqlText = `DELETE FROM contact WHERE id = $1;`;
-  pool.query(sqlText, [contactId])
+  const firstSqlText = `UPDATE Application
+                        SET contact_id = null
+                        WHERE contact_id = $1;`
+  pool.query(firstSqlText, [contactId])
     .then((result) => {
-      res.sendStatus(201);
+      const secondSqlText = `DELETE FROM contact WHERE id = $1;`;
+      pool.query(secondSqlText, [contactId])
+        .then((result) => {
+          res.sendStatus(201);
+        })
+        .catch((error) => {
+          console.log(`DELETE contact error: `, error);
+          res.sendStatus(500);
+        });
     })
     .catch((error) => {
       console.log(`DELETE contact error: `, error);

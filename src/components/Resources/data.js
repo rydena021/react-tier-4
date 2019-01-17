@@ -182,38 +182,154 @@ const RESOURCES = {
       name: 'Folcrum Consulting',
       url: 'http://www.fulcrumconsult.com/'
     },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
-    // {
-    //   name: '',
-    //   url: ''
-    // },
+    {
+      name: 'Fox Technical Services, Inc.',
+      url: 'http://foxts.com/main/'
+    },
+    {
+      name: 'Genesis 10',
+      url: 'https://www.genesis10.com/'
+    },
+    {
+      name: 'GullView Technologies',
+      url: 'http://gullviewtech.com/index.html'
+    },
+    {
+      name: 'High Impact Hires',
+      url: 'https://highimpacthires.com/'
+    },
+    {
+      name: 'Hollstadt Consulting',
+      url: 'http://www.hollstadt.com/'
+    },
+    {
+      name: 'Horizontal Integration',
+      url: 'https://horizontalintegration.com/'
+    },
+    {
+      name: 'ILM Professional Services',
+      url: 'https://ilmservice.com/'
+    },
+    {
+      name: 'Impact Group',
+      url: 'https://www.impactgroupmn.com/'
+    },
+    {
+      name: 'Infinity Consulting Solutions (ICS)',
+      url: 'http://infinity-cs.com/'
+    },
+    {
+      name: 'InsightGlobal',
+      url: 'https://www.insightglobal.com/'
+    },
+    {
+      name: 'Intuitive',
+      url: 'https://intuitivetech.com/'
+    },
+    {
+      name: 'iTR Group',
+      url: 'http://itrgroup.com/'
+    },
+    {
+      name: 'Latitude Group',
+      url: 'http://latitude-group.com/'
+    },
+    {
+      name: 'LogiSolve',
+      url: 'http://www.logisolve.com/'
+    },
+    {
+      name: 'Minnesota Headhunter',
+      url: 'https://www.mnheadhunter.com/'
+    },
+    {
+      name: 'Modis',
+      url: 'https://www.modis.com/'
+    },
+    {
+      name: 'MTW Recruit',
+      url: 'http://www.mtwrecruit.com/'
+    },
+    {
+      name: 'OtterBase',
+      url: 'https://www.otterbase.com/'
+    },
+    {
+      name: 'Paladin Staffing',
+      url: 'https://www.paladinstaff.com/'
+    },
+    {
+      name: 'Randstad Technologies',
+      url: 'https://www.randstadusa.com/technologies/'
+    },
+    {
+      name: 'Recruiters of Minnesota',
+      url: 'https://recruitersofmn.com/'
+    },
+    {
+      name: 'Robert Half Technology',
+      url: 'https://www.roberthalf.com/'
+    },
+    {
+      name: 'Salo',
+      url: 'https://salollc.com/'
+    },
+    {
+      name: 'Signature Consultants',
+      url: 'https://www.sigconsult.com/'
+    },
+    {
+      name: 'SkyWater Search Partners',
+      url: 'https://www.skywatersearch.com/'
+    },
+    {
+      name: 'Slalom',
+      url: 'https://www.slalom.com/'
+    },
+    {
+      name: 'Takoda Group',
+      url: 'http://takoda-group.com/'
+    },
+    {
+      name: 'Talent Software Services',
+      url: 'https://talentstaffingservices.com/'
+    },
+    {
+      name: 'Technical ProSource',
+      url: 'http://technicalprosource.com/locations/minneapolis-it-staffing/'
+    },
+    {
+      name: 'TEKsystems',
+      url: 'https://www.teksystems.com/en'
+    },
+    {
+      name: 'The Creative Group (division of Robert Half)',
+      url: 'https://www.roberthalf.com/work-with-us/our-services/creativegroup'
+    },
+    {
+      name: 'TIPS Consulting',
+      url: 'http://www.tips2e.com/'
+    },
+    {
+      name: 'True Talent Group',
+      url: 'https://truetalentgroup.com/'
+    },
+    {
+      name: 'VACO Technology',
+      url: 'https://www.vaco.com/'
+    },
+    {
+      name: 'Valere',
+      url: 'https://www.valere.com/'
+    },
+    {
+      name: 'Versique',
+      url: 'https://www.versique.com/'
+    },
+    {
+      name: 'York Solutions',
+      url: 'https://yorksolutions.net/'
+    },
   ],
   tech_meetups: [
     {
@@ -262,46 +378,5 @@ const RESOURCES = {
     },
   ],
 }
-
-/*
-Fox Technical Services, Inc.
-Genesis 10
-GullView Technologies
-High Impact Hires
-Hollstadt Consulting
-Horizontal Integration
-ilm
-Impact Group
-Infinity Consulting Solutions (ICS)
-InsightGlobal
-Intuitive
-iTR Group
-Latitude Group
-LogiSolve
-Minnesota Headhunter
-Modis
-MTW Recruit
-OtterBase
-Paladin Staffing
-Randstad Technologies
-Recruiters of Minnesota
-RightWay Search and Placement
-Robert Half TEchnology
-Salo
-Signature Consultants
-SkyWater Search Partners
-Slalom
-Takoda Group
-Talent Software Services
-Technical ProSource
-TEKsystems
-The Creative Group (division of Robert Half)
-TIPS Consulting
-True Talent Group
-VACO Technology
-Valere
-Versique
-York Solutions
-*/
 
 export default RESOURCES

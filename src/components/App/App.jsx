@@ -25,6 +25,10 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from '@material-ui/core/styles';
 import Content from './Content'
 import './App.css'
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux'
 
 const drawerWidth = 240;
 
@@ -59,9 +63,6 @@ const styles = theme => ({
     paddingBottom: 1,
     cursor: 'pointer',
     borderRadius: 5,
-    // '&:hover': {
-    //   backgroundColor: theme.palette.grey[700],
-    // },
   },
   hide: {
     display: 'none',
@@ -100,6 +101,20 @@ const styles = theme => ({
     flexGrow: 1,
     paddingTop: theme.spacing.unit * 3,
   },
+  navLogo: {
+    flexGrow: 1,
+    color: '#222222'
+  },
+  navMenu: {
+    color: '#222222',
+    '&:hover': {
+      backgroundColor: theme.palette.grey[400],
+    },
+    padding: theme.spacing.unit * 3,
+  },
+  profileButton: {
+    outline: 'none',
+  },
 });
 
 const theme = createMuiTheme({
@@ -127,7 +142,12 @@ const theme = createMuiTheme({
 class MiniDrawer extends React.Component {
   state = {
     open: false,
+    anchorEl: null,
   };
+
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -137,9 +157,27 @@ class MiniDrawer extends React.Component {
     this.setState({ open: false });
   };
 
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleLogout = () => {
+    this.props.dispatch({ type: 'LOGOUT' })
+    this.handleClose()
+  };
+
   render() {
     const { classes } = this.props;
-
+    const { anchorEl } = this.state;
+    let menuDisplayName;
+    this.props.user.first_name ?
+    menuDisplayName = this.props.user.first_name + ' ' + this.props.user.last_name
+    :
+    menuDisplayName = this.props.user.username
     return (
       <Router>
         <MuiThemeProvider theme={theme}>
@@ -162,9 +200,28 @@ class MiniDrawer extends React.Component {
                 >
                   <MenuIcon />
                 </div>
-                <Typography variant="h6" color="primary" noWrap className="nav-logo">
-                    Tier 4
+                <Typography variant="h6" color="primary" noWrap className={classes.navLogo}>
+                  Tier 4
                 </Typography>
+                <Button
+                  aria-owns={anchorEl ? 'simple-menu' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleClick}
+                  className={classes.navMenu}
+                >
+                  {menuDisplayName || ''}
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                >
+                  <Link className={classes.profileButton} to="/dashboard">
+                    <MenuItem onClick={this.handleClose}>My Profile</MenuItem>
+                  </Link>
+                  <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                </Menu>
               </Toolbar>
             </AppBar>
             <Drawer
@@ -236,4 +293,8 @@ MiniDrawer.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer)
+const mapStateToProps = state => ({
+  user: state.user,
+})
+
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(MiniDrawer))

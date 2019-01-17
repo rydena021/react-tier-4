@@ -40,9 +40,9 @@ class Resources extends Component {
             Tech Meetups
           </Typography>
           <List>
-            { RESOURCES.tech_meetups.map( item => {
+            { RESOURCES.tech_meetups.map( (item, i) => {
               return (
-                <ListItemLink href={item.url} target="_blank">
+                <ListItemLink key={i} href={item.url} target="_blank">
                   <ListItemText primary={item.name}/>
                 </ListItemLink>
               )
@@ -55,9 +55,9 @@ class Resources extends Component {
             Job Boards
           </Typography>
           <List>
-            {RESOURCES.job_boards.map(item => {
+            {RESOURCES.job_boards.map( (item, i) => {
               return (
-                <ListItemLink href={item.url} target="_blank">
+                <ListItemLink key={i} href={item.url} target="_blank">
                   <ListItemText primary={item.name} />
                 </ListItemLink>
               )
@@ -70,9 +70,9 @@ class Resources extends Component {
             Staffing Firms
           </Typography>
           <List>
-            {RESOURCES.staffing_firms.map(item => {
+            {RESOURCES.staffing_firms.map( (item, i) => {
               return (
-                <ListItemLink href={item.url} target="_blank">
+                <ListItemLink key={i} href={item.url} target="_blank">
                   <ListItemText primary={item.name} />
                 </ListItemLink>
               )

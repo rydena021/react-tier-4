@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
-import LogOutButton from '../LogOutButton/LogOutButton'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List';
@@ -139,7 +138,6 @@ class Dashboard extends Component {
           <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
           <br />
           <br />
-          <LogOutButton />
         </Paper>
         {this.state.editMode ?
           <EditUserModal toggleEditMode={this.toggleEditMode} user={this.props.user} />
