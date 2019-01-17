@@ -15,7 +15,6 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import moment from 'moment';
 
 const styles = theme => ({
   container: {
@@ -45,32 +44,26 @@ const styles = theme => ({
   },
 });
 
-class RegisterPage extends Component {
+class EditUserModal extends Component {
   state = {
-    username: '',
-    password: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    avatar_url: '',
-    notifications: true,
-    application_goal: 10,
-    commit_goal: 5,
-    meetup_goal: 1,
-    start_of_week: moment(new Date()).day(0)._d,
+    user_id: this.props.user.id,
+    first_name: this.props.user.first_name,
+    last_name: this.props.user.last_name,
+    email: this.props.user.email,
+    avatar_url: this.props.user.avatar_url,
+    notifications: this.props.user.notifications,
+    application_goal: this.props.user.application_goal,
+    commit_goal: this.props.user.commit_goal,
+    meetup_goal: this.props.user.meetup_goal,
   }
 
-  registerUser = (event) => {
+  updateUser = (event) => {
     event.preventDefault()
-    if (this.state.username && this.state.password) {
-      this.props.dispatch({
-        type: 'REGISTER',
-        payload: this.state,
-      })
-      this.props.history.push('/')
-    } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'})
-    }
+    this.props.dispatch({
+      type: 'EDIT_USER',
+      payload: this.state,
+    })
+    this.props.history.push('/')
   } // end registerUser
 
   handleInputChange = (event) => {
@@ -100,31 +93,10 @@ class RegisterPage extends Component {
         <form className={classes.container} noValidate>
           <Dialog
             open={true}
-            onClose={this.handleClose}
+            onClose={this.props.toggleEditMode}
           >
-            <DialogTitle id="form-dialog-title">Register</DialogTitle>
+            <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
             <DialogContent>
-              <TextField
-                required
-                label="Username"
-                name="username"
-                className={classes.textField}
-                value={this.state.username}
-                onChange={this.handleInputChange}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                required
-                label="Password"
-                name="password"
-                type="password"
-                className={classes.textField}
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                margin="normal"
-              />
-              <br />
               <TextField
                 label="First Name"
                 name="first_name"
@@ -224,7 +196,7 @@ class RegisterPage extends Component {
                   <MenuItem value={5}>5</MenuItem>
                 </Select>
               </FormControl>
-              <br/>
+              <br />
               <FormGroup className={classes.formGroup} row>
                 <FormControlLabel
                   control={
@@ -241,18 +213,12 @@ class RegisterPage extends Component {
               </FormGroup>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }} color="secondary">
-                Login
+              <Button onClick={this.props.toggleEditMode} color="secondary">
+                Cancel
               </Button>
-              {this.state.username && this.state.password ?
-                <Button onClick={this.registerUser} color="primary">
-                  Submit
-                </Button>
-                :
-                <Button variant="contained" color="primary" disabled >
-                  Submit
-                </Button>
-              }
+              <Button onClick={this.updateUser} color="primary">
+                Submit
+              </Button>
             </DialogActions>
           </Dialog>
         </form>
@@ -268,5 +234,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 })
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(RegisterPage)))
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(EditUserModal)))
 

@@ -14,7 +14,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import MinusIcon from '@material-ui/icons/Remove';
+import Button from '@material-ui/core/Button'
 import moment from 'moment';
+import EditUserModal from './EditUserModal'
 
 const styles = theme => ({
   header: {
@@ -33,13 +35,16 @@ const styles = theme => ({
     maxWidth: 360,
   },
   fab: {
-    margin: theme.spacing.unit ,
+    margin: theme.spacing.unit,
   },
 });
 
 class Dashboard extends Component {
+  state = {
+    editMode: false,
+  }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch({ type: 'FETCH_APPLICATIONS' })
     this.isNewWeek()
   }
@@ -49,7 +54,7 @@ class Dashboard extends Component {
     let today = moment(new Date());
     if (today.diff(start_of_week, 'days') > 7) {
       start_of_week = today.day(0)._d;
-      this.props.dispatch({ type: 'RESET_GOALS', payload: {start_of_week, user_id: this.props.user.id } })
+      this.props.dispatch({ type: 'RESET_GOALS', payload: { start_of_week, user_id: this.props.user.id } })
     }
   }
 
@@ -64,6 +69,17 @@ class Dashboard extends Component {
       [name]: this.props.user[name] + value,
     }
     this.props.dispatch({ type: 'UPDATE_GOAL', payload })
+  }
+
+  toggleEditMode = () => {
+    this.setState({ editMode: !this.state.editMode });
+  }
+
+  handleDelete = () => {
+    var result = window.confirm("Want to delete?");
+    if (result) {
+      this.props.dispatch({ type: "DELETE_USER", payload: this.props.user.id })
+    }
   }
 
   render() {
@@ -82,7 +98,7 @@ class Dashboard extends Component {
           <br />
           <img src={avatar_url} alt="" height='150px' width='150px' />
           <br />
-          <br/>
+          <br />
           <Typography variant="h5" gutterBottom>
             Weekly Goals
           </Typography>
@@ -101,7 +117,7 @@ class Dashboard extends Component {
               <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', -1)}>
                 <MinusIcon />
               </Fab>
-              <Fab size="small" color="secondary" className={classes.fab} onClick={()=>this.handleClick('github_commits', 1)}>
+              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', 1)}>
                 <AddIcon />
               </Fab>
             </ListItem>
@@ -118,9 +134,18 @@ class Dashboard extends Component {
               </Fab>
             </ListItem>
           </List>
-
+          <Button onClick={this.toggleEditMode} size="small" variant="contained" color="primary" className={classes.button}>Edit</Button>
+          {'  '}
+          <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
+          <br />
+          <br />
           <LogOutButton />
         </Paper>
+        {this.state.editMode ?
+          <EditUserModal toggleEditMode={this.toggleEditMode} user={this.props.user} />
+          :
+          null
+        }
       </div>
     )
   }

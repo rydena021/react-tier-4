@@ -63,6 +63,37 @@ router.put('/goals/:id', (req, res) => {
     });
 })
 
+router.put('/:id', (req, res) => {
+  const userId = req.params.id;
+  const { first_name, last_name, email, avatar_url, notifications, application_goal, commit_goal, meetup_goal } = req.body;
+  const queryValues = [first_name, last_name, email, avatar_url, notifications, application_goal, commit_goal, meetup_goal, userId];
+  const queryText = `UPDATE person SET first_name = $1, last_name = $2, email = $3, avatar_url = $4,
+                    notifications = $5, application_goal = $6, commit_goal = $7, meetup_goal = $8
+                    WHERE id = $9`;
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('PUT user error: ', err);
+      res.sendStatus(500);
+    });
+})
+
+router.delete('/:id', (req, res) => {
+  const userId = req.params.id;
+  const sqlText = `DELETE FROM person WHERE id = $1;`;
+  pool.query(sqlText, [userId])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`DELETE contact error: `, error);
+      res.sendStatus(500);
+    });
+});
+
+
 router.put('/goal/:id', (req, res) => {
   const userId = req.params.id;
   const { github_commits, meetups_attended } = req.body;
