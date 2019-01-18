@@ -42,6 +42,11 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+  textFieldSmall: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 117,
+  },
 });
 
 class EditUserModal extends Component {
@@ -133,69 +138,33 @@ class EditUserModal extends Component {
                 margin="normal"
               />
               <br />
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="application-goal">Application Goal</InputLabel>
-                <Select
-                  name="application_goal"
-                  value={this.state.application_goal}
-                  onChange={this.handleInputChange}
-                  inputProps={{
-                    name: "application_goal",
-                    id: "application-goal",
-                  }}
-                >
-                  <MenuItem value={0}>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={15}>15</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                  <MenuItem value={25}>25</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="commit-goal">Commit Goal</InputLabel>
-                <Select
-                  name="commit_goal"
-                  value={this.state.commit_goal}
-                  onChange={this.handleInputChange}
-                  inputProps={{
-                    name: "commit_goal",
-                    id: "commit-goal",
-                  }}
-                >
-                  <MenuItem value={0}>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="meetup-goal">Meet Up Goal</InputLabel>
-                <Select
-                  name="meetup_goal"
-                  value={this.state.meetup_goal}
-                  onChange={this.handleInputChange}
-                  inputProps={{
-                    name: "meetup_goal",
-                    id: "meetup-goal",
-                  }}
-                >
-                  <MenuItem value={0}>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                </Select>
-              </FormControl>
+              <TextField
+                label="Application Goal"
+                name="application_goal"
+                className={classes.textFieldSmall}
+                value={this.state.application_goal}
+                onChange={this.handleInputChange}
+                type="number"
+                margin="normal"
+              />
+              <TextField
+                label="Commit Goal"
+                name="commit_goal"
+                className={classes.textFieldSmall}
+                value={this.state.commit_goal}
+                onChange={this.handleInputChange}
+                type="number"
+                margin="normal"
+              />
+              <TextField
+                label="Meet Up Goal"
+                name="meetup_goal"
+                className={classes.textFieldSmall}
+                value={this.state.meetup_goal}
+                onChange={this.handleInputChange}
+                type="number"
+                margin="normal"
+              />
               <br />
               <FormGroup className={classes.formGroup} row>
                 <FormControlLabel
