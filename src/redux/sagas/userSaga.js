@@ -27,6 +27,7 @@ function* fetchUser() {
 function* editUser(action) {
   try {
     yield axios.put(`api/user/${action.payload.user_id}`, action.payload)
+    yield put({ type: 'EDIT_USER_SNACK' })
     yield put({ type: 'FETCH_USER' })
   } catch (error) {
     console.log('Error PUTTING User:', error)

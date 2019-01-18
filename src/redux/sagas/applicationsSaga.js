@@ -4,6 +4,7 @@ import axios from 'axios'
 function* addApplication(action) {
   try {
     yield axios.post('api/applications', action.payload)
+    yield put({ type: 'ADD_APPLICATION_SNACK' })
     yield put({ type: 'FETCH_APPLICATIONS' })
     yield put({ type: 'FETCH_USER' })
   } catch (error) {
@@ -24,6 +25,7 @@ function* fetchApplications() {
 function* editApplication(action) {
   try {
     yield axios.put(`api/applications/${action.payload.application_id}`, action.payload)
+    yield put({ type: 'EDIT_APPLICATION_SNACK' })
     yield put({ type: 'FETCH_APPLICATIONS' })
   } catch (error) {
     console.log('Error PUTTING application:', error)
@@ -33,6 +35,7 @@ function* editApplication(action) {
 function* deleteApplication(action) {
   try {
     yield axios.delete(`api/applications/${action.payload.id}`)
+    yield put({ type: 'DELETE_APPLICATION_SNACK' })
     yield put({ type: 'FETCH_APPLICATIONS' })
   } catch (error) {
     console.log('Error DELETING application:', error)

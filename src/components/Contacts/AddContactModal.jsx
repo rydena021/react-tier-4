@@ -98,7 +98,7 @@ class AddContactModal extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div>
+      <div> 
         <Container>
           <div>
             <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>

@@ -8,7 +8,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT CONCAT("contact".first_name, ' ', "contact".last_name) AS contact_name,
               "application".id, "application".user_id, "application".contact_id, "application".position,
               "application".company, "application".posting_url, "application".comments,
-              "application".follow_up_complete, "application".notification_sent,
+              "application".follow_up_complete, "application".notification_sent, "application".status,
               to_char("application".date_applied, 'MM/DD/YYYY') AS date_applied,
               to_char("application".date_applied, 'YYYY-MM-DD') AS date_applied_mui
               FROM "application"
@@ -48,13 +48,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-  let { contact_id, position, company, posting_url, date_applied, comments } = req.body
+  let { contact_id, position, company, posting_url, date_applied, comments, status } = req.body
   if (contact_id === 'none') { contact_id = null }
   const applicationId = req.params.id;
-  const queryValues = [contact_id, position, company, posting_url, date_applied, comments, applicationId]
+  const queryValues = [contact_id, position, company, posting_url, date_applied, comments, status, applicationId]
   const queryText = `UPDATE application SET contact_id = $1, position = $2, company = $3,
-                    posting_url = $4, date_applied = $5, comments = $6
-                    WHERE id=$7`;
+                    posting_url = $4, date_applied = $5, comments = $6, status = $7
+                    WHERE id=$8`;
   pool.query(queryText, queryValues)
     .then(() => {
       res.sendStatus(201);
@@ -77,5 +77,21 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+router.put('/notification/:id', rejectUnauthenticated, (req, res) => {
+  const applicationId = req.params.id;
+  let { follow_up_complete } = req.body
+  const queryValues = [follow_up_complete, applicationId]
+  const queryText = `UPDATE application SET follow_up_complete = $1, notification_sent = true
+                    WHERE id=$2`;
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('PUT application notification error: ', err);
+      res.sendStatus(500);
+    });
+})
 
 module.exports = router;

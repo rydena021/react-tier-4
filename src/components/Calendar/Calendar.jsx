@@ -3,11 +3,18 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 // import axios from 'axios'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
+
 import './Calendar.css';
 
 const localizer = BigCalendar.momentLocalizer(moment)
+
+const Container = styled.div`
+ text-align: center;
+`;
 
 const styles = theme => ({
   header: {
@@ -18,6 +25,9 @@ const styles = theme => ({
   },
   calendar: {
     height: 700,
+    margin: theme.spacing.unit * 3,
+  },
+  button: {
     margin: theme.spacing.unit * 3,
   },
 });
@@ -43,6 +53,14 @@ class Calendar extends Component {
             Calendar
           </Typography>
         </div>
+        <Container>
+          <div>
+            <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
+              Add New Event
+            </Button>
+          </div>
+        </Container>
+        <br />
         <div className={classes.calendar}>
           <BigCalendar
             localizer={localizer}

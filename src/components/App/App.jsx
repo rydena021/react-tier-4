@@ -29,6 +29,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux'
+import Snackbar from '../Snackbar/Snackbar'
 
 const drawerWidth = 240;
 
@@ -280,6 +281,7 @@ class MiniDrawer extends React.Component {
             <main className={classes.content}>
               <div className={classes.toolbar} />
               <Content />
+              <Snackbar />
             </main>
           </div>
         </MuiThemeProvider>

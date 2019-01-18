@@ -20,7 +20,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import LinkIcon from '@material-ui/icons/InsertLink'
+import LensIcon from '@material-ui/icons/Lens'
 import EditApplicationModal from './EditApplicationModal'
+import './ApplicationTable.css'
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -61,6 +63,7 @@ const rows = [
   { id: 'position', numeric: true, disablePadding: false, label: 'Position' },
   { id: 'company', numeric: true, disablePadding: false, label: 'Company' },
   { id: 'contact_name', numeric: true, disablePadding: false, label: 'Contact' },
+  { id: 'status', numeric: true, disablePadding: true, label: 'Status' },
   { id: 'posting_url', numeric: true, disablePadding: true, label: '' },
   { id: 'delete', numeric: true, disablePadding: true, label: '' },
   { id: 'edit', numeric: true, disablePadding: true, label: '' },
@@ -135,6 +138,9 @@ const styles = theme => ({
   commentModal: {
     minWidth: 400,
     width: '100%'
+  },
+  status: {
+    fontSize: 10
   },
 });
 
@@ -217,9 +223,10 @@ class EnhancedTable extends React.Component {
               />
               <colgroup>
                 <col style={{ width: '10%' }} />
-                <col style={{ width: '26%' }} />
-                <col style={{ width: '26%' }} />
-                <col style={{ width: '26%' }} />
+                <col style={{ width: '24%' }} />
+                <col style={{ width: '25%' }} />
+                <col style={{ width: '25%' }} />
+                <col style={{ width: '4%' }} />
                 <col style={{ width: '4%' }} />
                 <col style={{ width: '4%' }} />
                 <col style={{ width: '4%' }} />
@@ -244,6 +251,9 @@ class EnhancedTable extends React.Component {
                             :
                             application.contact_name
                           }</TableCell>
+                          <TableCell align="right" className={classes.icon} onClick={() => this.handleEditOpen(application)}>
+                            <span className={application.status}><LensIcon className={classes.status}/></span>
+                          </TableCell>
                           {application.posting_url ?
                             <TableCell align="right" component="a" target="_blank" href={application.posting_url} className={classes.icon}>
                                 <LinkIcon />

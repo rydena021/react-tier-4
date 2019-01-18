@@ -1,0 +1,15 @@
+.pending {
+  color: yellow;
+}
+
+.rejected {
+  color: red;
+}
+
+.interviewing {
+  color: green;
+}
+
+.status-icon {
+  font-size: 5px;
+}

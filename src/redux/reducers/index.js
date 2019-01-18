@@ -5,6 +5,8 @@ import user from './userReducer';
 import applications from './applicationsReducer';
 import contacts from './contactsReducer';
 import modal from './modalReducer';
+import notifications from './notificationsReducer';
+import snackbars from './snackbarReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   applications,
   contacts,
-  modal
+  modal,
+  notifications,
+  snackbars,
 });
 
 export default rootReducer;

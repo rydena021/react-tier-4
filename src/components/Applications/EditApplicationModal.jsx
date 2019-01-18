@@ -41,6 +41,7 @@ class EditApplicationModal extends Component {
     position: this.props.application.position,
     company: this.props.application.company,
     posting_url: this.props.application.posting_url,
+    status: this.props.application.status,
     date_applied: this.props.application.date_applied_mui,
     comments: this.props.application.comments,
   }
@@ -147,6 +148,27 @@ class EditApplicationModal extends Component {
                       <MenuItem value={contact.id} key={contact.id}>{contact.first_name + ' ' + contact.last_name}</MenuItem>
                     )
                   })}
+                </Select>
+              </FormControl>
+              <br/>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="status">Status</InputLabel>
+                <Select
+                  value={this.state.status || ''}
+                  onChange={this.handleInputChange}
+                  name="status"
+                  id="status"
+                // displayEmpty
+                >
+                  <MenuItem value='pending'>
+                    Pending
+                  </MenuItem>
+                  <MenuItem value='rejected'>
+                    Rejected
+                  </MenuItem>
+                  <MenuItem value='interviewing'>
+                    Interviewing
+                  </MenuItem>
                 </Select>
               </FormControl>
             </DialogContent>

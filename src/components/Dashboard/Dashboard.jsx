@@ -16,6 +16,7 @@ import MinusIcon from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button'
 import moment from 'moment';
 import EditUserModal from './EditUserModal'
+import Notifications from './Notifications'
 
 const styles = theme => ({
   header: {
@@ -98,6 +99,11 @@ class Dashboard extends Component {
           <img src={avatar_url} alt="" height='150px' width='150px' />
           <br />
           <br />
+          <Button onClick={this.toggleEditMode} size="small" variant="contained" color="primary" className={classes.button}>Edit</Button>
+          {'  '}
+          <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
+          <br />
+          <br />
           <Typography variant="h5" gutterBottom>
             Weekly Goals
           </Typography>
@@ -133,10 +139,16 @@ class Dashboard extends Component {
               </Fab>
             </ListItem>
           </List>
-          <Button onClick={this.toggleEditMode} size="small" variant="contained" color="primary" className={classes.button}>Edit</Button>
-          {'  '}
-          <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
-          <br />
+          <br/>
+          <Typography variant="h5" gutterBottom>
+            Notifications
+          </Typography>
+          {this.props.notifications.map( (notification, i) => {
+            return (
+              <Notifications notification={notification} key={i}/>
+            )
+          })}
+          <br/>
           <br />
         </Paper>
         {this.state.editMode ?
@@ -153,6 +165,7 @@ class Dashboard extends Component {
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({user}) => ({ user })
 const mapStateToProps = state => ({
+  notifications: state.notifications,
   user: state.user,
 })
 
