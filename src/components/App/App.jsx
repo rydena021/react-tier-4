@@ -17,7 +17,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EventIcon from '@material-ui/icons/Event';
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import LinkIcon from '@material-ui/icons/Link';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import ContactIcon from '@material-ui/icons/ContactPhone';
@@ -30,6 +30,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux'
 import Snackbar from '../Snackbar/Snackbar'
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 
 const drawerWidth = 240;
 
@@ -270,9 +271,15 @@ class MiniDrawer extends React.Component {
                     <ListItemText primary={'Calendar'} />
                   </ListItem>
                 </Link>
+                <Link to="/documents">
+                  <ListItem button key='Documents'>
+                    <ListItemIcon><InsertDriveFileIcon /></ListItemIcon>
+                    <ListItemText primary={'Documents'} />
+                  </ListItem>
+                </Link>
                 <Link to="/resources">
                   <ListItem button key='Resources'>
-                    <ListItemIcon><BookmarksIcon /></ListItemIcon>
+                    <ListItemIcon><LinkIcon /></ListItemIcon>
                     <ListItemText primary={'Resources'} />
                   </ListItem>
                 </Link>

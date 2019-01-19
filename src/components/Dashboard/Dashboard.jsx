@@ -17,6 +17,7 @@ import Button from '@material-ui/core/Button'
 import moment from 'moment';
 import EditUserModal from './EditUserModal'
 import Notifications from './Notifications'
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   header: {
@@ -25,10 +26,14 @@ const styles = theme => ({
     color: '#686A6C',
     padding: theme.spacing.unit * 3,
   },
+  subHeader: {
+    // textAlign: 'center',
+  },
   root: {
     ...theme.mixins.gutters(),
     padding: theme.spacing.unit * 3,
     margin: theme.spacing.unit * 5,
+    flexGrow: 1,
   },
   listRoot: {
     width: '100%',
@@ -36,6 +41,9 @@ const styles = theme => ({
   },
   fab: {
     margin: theme.spacing.unit,
+  },
+  avatar: {
+    borderRadius: '50%'
   },
 });
 
@@ -92,64 +100,67 @@ class Dashboard extends Component {
           Dashboard
         </Typography>
         <Paper className={classes.root} elevation={1}>
-          <Typography variant="h5" gutterBottom>
-            Welcome, {username}!
-          </Typography>
-          <br />
-          <img src={avatar_url} alt="" height='150px' width='150px' />
-          <br />
-          <br />
-          <Button onClick={this.toggleEditMode} size="small" variant="contained" color="primary" className={classes.button}>Edit</Button>
-          {'  '}
-          <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
-          <br />
-          <br />
-          <Typography variant="h5" gutterBottom>
-            Weekly Goals
-          </Typography>
-          <List className={classes.listRoot}>
-            <ListItem>
-              <Avatar>
-                <AssignmentIcon />
-              </Avatar>
-              <ListItemText primary="Applications Submitted:" secondary={`${applications_submitted + '/' + application_goal}`} />
-            </ListItem>
-            <ListItem>
-              <Avatar>
-                <CloudUploadIcon />
-              </Avatar>
-              <ListItemText primary="GitHub Commits:" secondary={`${github_commits + '/' + commit_goal}`} />
-              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', -1)}>
-                <MinusIcon />
-              </Fab>
-              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', 1)}>
-                <AddIcon />
-              </Fab>
-            </ListItem>
-            <ListItem>
-              <Avatar>
-                <PeopleIcon />
-              </Avatar>
-              <ListItemText primary="Meet Ups Attended:" secondary={`${meetups_attended + '/' + meetup_goal}`} />
-              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', -1)}>
-                <MinusIcon />
-              </Fab>
-              <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', 1)}>
-                <AddIcon />
-              </Fab>
-            </ListItem>
-          </List>
-          <br/>
-          <Typography variant="h5" gutterBottom>
-            Notifications
-          </Typography>
-          {this.props.notifications.map( (notification, i) => {
-            return (
-              <Notifications notification={notification} key={i}/>
-            )
-          })}
-          <br/>
-          <br />
+          <Grid container spacing={24}>
+            <Grid item xs={6}>
+              <Typography className={classes.subHeader} variant="h5" gutterBottom>
+                Welcome, {username}!
+              </Typography>
+              <br />
+              <img className={classes.avatar} src={avatar_url} alt="" height='150px' width='150px' />
+              <br />
+              <br />
+              <Button onClick={this.toggleEditMode} size="small" variant="contained" color="primary" className={classes.button}>Edit</Button>
+              {'  '}
+              <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography className={classes.subHeader} variant="h5" gutterBottom>
+                Weekly Goals
+              </Typography>
+              <List className={classes.listRoot}>
+                <ListItem>
+                  <Avatar>
+                    <AssignmentIcon />
+                  </Avatar>
+                  <ListItemText primary="Applications Submitted:" secondary={`${applications_submitted + '/' + application_goal}`} />
+                </ListItem>
+                <ListItem>
+                  <Avatar>
+                    <CloudUploadIcon />
+                  </Avatar>
+                  <ListItemText primary="GitHub Commits:" secondary={`${github_commits + '/' + commit_goal}`} />
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', -1)}>
+                    <MinusIcon />
+                  </Fab>
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('github_commits', 1)}>
+                    <AddIcon />
+                  </Fab>
+                </ListItem>
+                <ListItem>
+                  <Avatar>
+                    <PeopleIcon />
+                  </Avatar>
+                  <ListItemText primary="Meet Ups Attended:" secondary={`${meetups_attended + '/' + meetup_goal}`} />
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', -1)}>
+                    <MinusIcon />
+                  </Fab>
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('meetups_attended', 1)}>
+                    <AddIcon />
+                  </Fab>
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography className={classes.subHeader} variant="h5" gutterBottom>
+                Notifications
+              </Typography>
+              {this.props.notifications.map( (notification, i) => {
+                return (
+                  <Notifications notification={notification} key={i}/>
+                )
+              })}
+            </Grid>
+          </Grid>
         </Paper>
         {this.state.editMode ?
           <EditUserModal toggleEditMode={this.toggleEditMode} user={this.props.user} />

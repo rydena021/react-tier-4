@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET contacts
 router.get('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
-  const queryText = `SELECT id, user_id, first_name, last_name, phone, email, company,
+  const queryText = `SELECT id, user_id, first_name, last_name, phone, email, company, avatar_url,
                     linkedin_url, comments, to_char(date_met, 'MM/DD/YYYY') AS date_met, to_char(date_met, 'YYYY-MM-DD') AS date_met_mui
                     FROM contact WHERE user_id = $1 ORDER BY id ASC;`
   pool.query(queryText, [id])

@@ -63,7 +63,7 @@ class ContactsPage extends Component {
                 <Grid item md={1}></Grid>
                 <Grid item xs={12} md={3}>
                   <a href={contact.linkedin_url || '#/contacts'} target={contact.linkedin_url ? '_blank' : ''}>
-                    <img className={classes.image} src="/images/avatar-placeholder.png" alt="" height='235px' width='235px'/>
+                    <img className={classes.image} src={contact.avatar_url} alt="" height='235px' width='235px'/>
                   </a>
                 </Grid>
                 <Grid item xs={12} md={7}>
