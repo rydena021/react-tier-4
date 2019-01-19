@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import applications from './applicationsReducer';
 import contacts from './contactsReducer';
-import modal from './modalReducer';
+import documents from './documentsReducer';
 import notifications from './notificationsReducer';
 import snackbars from './snackbarReducer';
 
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   applications,
   contacts,
-  modal,
+  documents,
   notifications,
   snackbars,
 });

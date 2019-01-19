@@ -14,6 +14,8 @@ const snackbarReducer = (state = { open: false, message: '' }, action) => {
       return { open: true, message: 'Contact Deleted' };
     case 'EDIT_USER_SNACK':
       return { open: true, message: 'Profile Updated' };
+    case 'ADD_DOCUMENT_SNACK':
+      return { open: true, message: 'Document Added' };
     case 'HIDE_SNACK':
       return { open: false, message: '' };
     default:

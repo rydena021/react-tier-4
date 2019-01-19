@@ -7,12 +7,12 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import styled from 'styled-components';
-import ReactFilestack from 'filestack-react';
+import styled from 'styled-components'
+import ReactFilestack from 'filestack-react'
 
 const Container = styled.div`
- text-align: center;
-`;
+ text-align: center
+`
 
 const styles = theme => ({
   container: {
@@ -33,7 +33,7 @@ const styles = theme => ({
   },
 })
 
-const FILESTACK_API_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
+const FILESTACK_API_KEY = process.env.REACT_APP_FILESTACK_API_KEY
 
 const basicOptions = {
   accept: '.pdf',
@@ -48,6 +48,10 @@ class AddContactModal extends Component {
     user_id: this.props.user.id,
     document_name: '',
     document_url: '',
+  }
+
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_DOCUMENTS'})
   }
 
   handleClickOpen = () => {
@@ -71,12 +75,11 @@ class AddContactModal extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state);
-    // this.props.dispatch({
-    //   type: 'ADD_CONTACT',
-    //   payload: this.state,
-    // })
-    // this.handleClose()
+    this.props.dispatch({
+      type: 'ADD_DOCUMENT',
+      payload: this.state,
+    })
+    this.handleClose()
   }
 
   onSuccess = (result) => {
@@ -85,7 +88,7 @@ class AddContactModal extends Component {
     })
   }
   onError = (error) => {
-    console.error('error', error);
+    console.error('error', error)
   }
 
   render() {
@@ -120,7 +123,7 @@ class AddContactModal extends Component {
               <br/>
               <ReactFilestack
                 apikey={FILESTACK_API_KEY}
-                buttonText="Upload Photo"
+                buttonText="Upload Document"
                 buttonClass="upload-button"
                 options={basicOptions}
                 onSuccess={this.onSuccess}

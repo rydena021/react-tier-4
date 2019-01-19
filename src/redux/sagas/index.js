@@ -6,6 +6,7 @@ import applicationsSaga from './applicationsSaga';
 import contactsSaga from './contactsSaga';
 import notificationsSaga from './notificationsSaga';
 import goalsSaga from './goalsSaga';
+import documentsSaga from './documentsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     contactsSaga(),
     notificationsSaga(),
     goalsSaga(),
+    documentsSaga(),
   ]);
 }
