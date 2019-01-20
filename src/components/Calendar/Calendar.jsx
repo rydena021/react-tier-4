@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-// import axios from 'axios'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
+import AddEventModal from './AddEventModal';
 
 import './Calendar.css';
 
@@ -37,6 +36,7 @@ class Calendar extends Component {
   componentDidMount() {
     //Fetch events from database here
   }
+  
   render() {
     const cal_events = [
       {
@@ -45,6 +45,8 @@ class Calendar extends Component {
         end: new Date(),
       }
     ]
+    console.log(cal_events);
+
     const { classes } = this.props;
     return (
       <div >
@@ -55,9 +57,7 @@ class Calendar extends Component {
         </div>
         <Container>
           <div>
-            <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
-              Add New Event
-            </Button>
+            <AddEventModal />
           </div>
         </Container>
         <br />

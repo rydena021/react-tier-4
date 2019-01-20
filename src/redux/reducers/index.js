@@ -7,6 +7,7 @@ import contacts from './contactsReducer';
 import documents from './documentsReducer';
 import notifications from './notificationsReducer';
 import snackbars from './snackbarReducer';
+import events from './eventsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   documents,
   notifications,
   snackbars,
+  events,
 });
 
 export default rootReducer;
