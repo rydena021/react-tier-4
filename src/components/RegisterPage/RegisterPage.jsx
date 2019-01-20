@@ -211,7 +211,7 @@ class RegisterPage extends Component {
                 Login
               </Button>
               {this.state.username && this.state.password ?
-                <Button onClick={this.registerUser} color="primary">
+                <Button onClick={this.registerUser} variant="contained" color="primary">
                   Submit
                 </Button>
                 :

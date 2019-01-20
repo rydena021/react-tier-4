@@ -31,6 +31,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux'
 import Snackbar from '../Snackbar/Snackbar'
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import Badge from '@material-ui/core/Badge';
 
 const drawerWidth = 240;
 
@@ -112,7 +113,11 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.grey[400],
     },
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit,
+  },
+  badge: {
+    marginRight: theme.spacing.unit * 3,
+    color: '#0000ee',
   },
   profileButton: {
     outline: 'none',
@@ -149,6 +154,7 @@ class MiniDrawer extends React.Component {
 
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
+    this.props.dispatch({ type: 'FETCH_NOTIFICATIONS' })
   }
 
   handleDrawerOpen = () => {
@@ -173,7 +179,7 @@ class MiniDrawer extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, notifications } = this.props;
     const { anchorEl } = this.state;
     let menuDisplayName;
     this.props.user.first_name ?
@@ -205,14 +211,16 @@ class MiniDrawer extends React.Component {
                 <Typography variant="h6" color="primary" noWrap className={classes.navLogo}>
                   Tier 4
                 </Typography>
-                <Button
-                  aria-owns={anchorEl ? 'simple-menu' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleClick}
-                  className={classes.navMenu}
-                >
-                  {menuDisplayName || ''}
-                </Button>
+                <Badge color="error" badgeContent={notifications.length} invisible={notifications.length === 0 ? true : false} className={classes.badge}>
+                  <Button
+                    aria-owns={anchorEl ? 'simple-menu' : undefined}
+                    aria-haspopup="true"
+                    onClick={this.handleClick}
+                    className={classes.navMenu}
+                    >
+                    {menuDisplayName || ''}
+                  </Button>
+                </Badge>
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
@@ -304,6 +312,7 @@ MiniDrawer.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.user,
+  notifications: state.notifications,
 })
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(MiniDrawer))

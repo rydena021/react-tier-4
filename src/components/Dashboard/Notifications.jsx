@@ -17,8 +17,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   },
   jobText: {
-    // display: 'block',
-    // verticalAlign: 'middle',
+    marginTop: theme.spacing.unit,
   },
 });
 

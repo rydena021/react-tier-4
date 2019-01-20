@@ -66,7 +66,10 @@ class ApplicationModal extends Component {
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true })
+    this.setState({
+      open: true,
+      date_applied: getDate(),
+    })
   }
 
   handleClose = () => {
@@ -195,7 +198,7 @@ class ApplicationModal extends Component {
                 Cancel
               </Button>
               {this.state.position && this.state.company && this.state.date_applied ?
-                <Button onClick={this.handleSubmit} color="primary">
+                <Button onClick={this.handleSubmit} variant="contained" color="primary">
                   Submit
                 </Button>
               :

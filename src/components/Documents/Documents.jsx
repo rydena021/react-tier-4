@@ -43,14 +43,20 @@ class Documents extends Component {
         </div>
         <AddDocumentModal />
         <div className={classes.root}>
-          <List>
-            {documents.map((document, i) => {
+          {documents.length === 0 ?
+            <Typography variant="h6" gutterBottom>
+              <em>None</em>
+            </Typography>
+            :
+            documents.map((document, i) => {
               return (
                 <ListItemLink key={i} href={document.document_url} target="_blank">
                   <ListItemText primary={document.document_name} />
                 </ListItemLink>
               )
-            })}
+            })
+          }
+          <List>
           </List>
         </div>
       </div>

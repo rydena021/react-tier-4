@@ -98,7 +98,7 @@ class AddContactModal extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div> 
+      <div>
         <Container>
           <div>
             <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleClickOpen}>
@@ -199,7 +199,7 @@ class AddContactModal extends Component {
                 Cancel
               </Button>
               {this.state.first_name ?
-                <Button onClick={this.handleSubmit} color="primary">
+                <Button onClick={this.handleSubmit} variant="contained" color="primary">
                   Submit
                 </Button>
               :

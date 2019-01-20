@@ -27,7 +27,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
   },
   subHeader: {
-    // textAlign: 'center',
+    textAlign: 'center',
   },
   root: {
     ...theme.mixins.gutters(),
@@ -101,8 +101,8 @@ class Dashboard extends Component {
         </Typography>
         <Paper className={classes.root} elevation={1}>
           <Grid container spacing={24}>
-            <Grid item xs={6}>
-              <Typography className={classes.subHeader} variant="h5" gutterBottom>
+            <Grid item className={classes.subHeader} xs={5}>
+              <Typography variant="h5" gutterBottom>
                 Welcome, {username}!
               </Typography>
               <br />
@@ -113,7 +113,7 @@ class Dashboard extends Component {
               {'  '}
               <Button onClick={this.handleDelete} size="small" variant="contained" color="secondary" className={classes.button}>Delete</Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={7}>
               <Typography className={classes.subHeader} variant="h5" gutterBottom>
                 Weekly Goals
               </Typography>
@@ -151,14 +151,20 @@ class Dashboard extends Component {
               </List>
             </Grid>
             <Grid item xs={12}>
-              <Typography className={classes.subHeader} variant="h5" gutterBottom>
-                Notifications
+              <Typography variant="h5" gutterBottom>
+                Follow Up Emails
               </Typography>
-              {this.props.notifications.map( (notification, i) => {
+              {this.props.notifications.length === 0 ?
+                <Typography variant="h6" gutterBottom>
+                  <em>None</em>
+                </Typography>
+                :
+                this.props.notifications.map( (notification, i) => {
                 return (
                   <Notifications notification={notification} key={i}/>
-                )
-              })}
+                  )
+                })
+              }
             </Grid>
           </Grid>
         </Paper>

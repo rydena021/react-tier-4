@@ -135,7 +135,7 @@ class AddContactModal extends Component {
                 Cancel
               </Button>
               {this.state.document_name ?
-                <Button onClick={this.handleSubmit} color="primary">
+                <Button onClick={this.handleSubmit} variant="contained" color="primary">
                   Submit
                 </Button>
                 :
