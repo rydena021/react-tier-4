@@ -96,10 +96,10 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
 router.put('/goal/:id', rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
-  const { github_commits, meetups_attended } = req.body;
-  const queryValues = [github_commits, meetups_attended, userId];
-  const queryText = `UPDATE person SET github_commits = $1, meetups_attended = $2
-                    WHERE id = $3`;
+  const { github_commits, applications_submitted, meetups_attended } = req.body;
+  const queryValues = [github_commits, meetups_attended, applications_submitted, userId];
+  const queryText = `UPDATE person SET github_commits = $1, meetups_attended = $2, applications_submitted = $3
+                    WHERE id = $4`;
   pool.query(queryText, queryValues)
     .then(() => {
       res.sendStatus(201);

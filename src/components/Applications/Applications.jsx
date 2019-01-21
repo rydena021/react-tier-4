@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AddApplicationModal from './AddApplicationModal'
-import ApplicationsTable from './ApplicationsTable'
+import ApplicationTable from './ApplicationTable'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
@@ -30,7 +30,7 @@ class Applications extends Component {
         </div>
         <br/>
         <AddApplicationModal />
-        <ApplicationsTable />
+        <ApplicationTable />
       </div>
     )
   }

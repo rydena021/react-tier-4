@@ -37,7 +37,7 @@ const styles = theme => ({
   },
   listRoot: {
     width: '100%',
-    maxWidth: 360,
+    // maxWidth: 360,
   },
   fab: {
     margin: theme.spacing.unit,
@@ -74,6 +74,7 @@ class Dashboard extends Component {
       user_id: this.props.user.id,
       github_commits: this.props.user.github_commits,
       meetups_attended: this.props.user.meetups_attended,
+      applications_submitted: this.props.user.applications_submitted,
       [name]: this.props.user[name] + value,
     }
     this.props.dispatch({ type: 'UPDATE_GOAL', payload })
@@ -123,6 +124,12 @@ class Dashboard extends Component {
                     <AssignmentIcon />
                   </Avatar>
                   <ListItemText primary="Applications Submitted:" secondary={`${applications_submitted + '/' + application_goal}`} />
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('applications_submitted', -1)}>
+                    <MinusIcon />
+                  </Fab>
+                  <Fab size="small" color="secondary" className={classes.fab} onClick={() => this.handleClick('applications_submitted', 1)}>
+                    <AddIcon />
+                  </Fab>
                 </ListItem>
                 <ListItem>
                   <Avatar>
