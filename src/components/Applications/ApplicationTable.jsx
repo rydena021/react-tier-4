@@ -223,9 +223,9 @@ class EnhancedTable extends React.Component {
               />
               <colgroup>
                 <col style={{ width: '10%' }} />
-                <col style={{ width: '24%' }} />
-                <col style={{ width: '25%' }} />
-                <col style={{ width: '25%' }} />
+                <col style={{ width: '30%' }} />
+                <col style={{ width: '22%' }} />
+                <col style={{ width: '22%' }} />
                 <col style={{ width: '4%' }} />
                 <col style={{ width: '4%' }} />
                 <col style={{ width: '4%' }} />
